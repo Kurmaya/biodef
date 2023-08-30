@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="viewport" content="width=device-width , initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images\biodef-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<!-- <link href="https://fonts.googleapis.com/css2?family=Adamina&family=Bitter:wght@100;200;300;400;500;600;700;800;900&family=Josefin+Sans:wght@300;400;500;600;700&family=Merriweather+Sans:wght@300;400;500;600;700;800&family=Merriweather:wght@300;400;700;900&family=PT+Serif:wght@400;700&family=Quantico:ital,wght@0,700;1,400&family=Righteous&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css2?family=Adamina&family=Bitter:wght@100;200;300;400;500;600;700;800;900&family=Josefin+Sans:wght@300;400;500;600;700&family=Merriweather+Sans:wght@300;400;500;600;700;800&family=Merriweather:wght@300;400;700;900&family=PT+Serif:wght@400;700&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Righteous&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- <link href="https://fonts.cdnfonts.com/css/eagle-4" rel="stylesheet" crossorigin>
+<link href="https://fonts.cdnfonts.com/css/dm-sans" rel="stylesheet"crossorigin> -->
+
+
+  <!-- <link href="https://fonts.cdnfonts.com/css/century-gothic" rel="stylesheet" crossorigin>
+  <link href="https://fonts.cdnfonts.com/css/cydonia-century" rel="stylesheet" crossorigin> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+  <title>Welcome to Biodefence</title>
+</head>
+
+<body>
+  <!-- <div class="switch">
+    <h3>Please Switch to Landscape Mode</h3>
+  </div> -->
+  <div class="page">
+    <div class="drop" >
+      <h3>MENU</h3>
+    </div>
+    <ul class="navigation">
+      <li class="selected">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+
+
+    <div class="cursor"></div>
+    <div class="follow"></div>
+    <!-- <video id="video-texture" playsinline muted controls crossorigin src="https://ik.imagekit.io/768eoiozf/biodefence/WIP6_1__5uiNCr5RI.mp4?ik-sdk-version=javascript-1.4.3&updatedAt=1677766633443" poster="images/thumbnail.jpg"></video> -->
+    <video id="video-texture" playsinline muted controls crossorigin src="videos\bio.mp4"></video>
+    <div class="vid-loader">
+      <video src="videos/Load Video.mp4" id="load-vid" playsinline muted autoplay>
+
+      </video>
+    </div>
+    <div class="positions">
+      <a href="freshfood.html"><button><span><img class="two" src="images\icons\new icons\food1.png" style="width:40px;"  alt=""></span>
+          <p>Fresh Food</p>
+        </button></a>
+        <a href="safespaces.html"><button id="cam4"><span><img class="two" src="images\icons\new icons\safe_sm.png" style="width:30px;" alt=""></span>
+            <p>Safe Spaces</p>
+          </button></a>
+          <a href="madeforyou.html"><button><span><img class="two" src="images\icons\new icons\custom2.png" style="width:35px;" alt=""></span>
+              <p>Made For You</p>
+            </button></a>
+      <a href="index.html"><button id="cam1"><span><img class="two" src="images\icons\new icons\home_sm.png" style="width:50px;" alt=""></span>
+          <p>BioDefence</p>
+        </button></a>
+        <a href="ourimpact.html"><button id="cam5"><span><img class="two" src="images\icons\new icons\impact1.png"style="width:40px;" alt=""></span>
+            <p>Our Impact</p>
+          </button></a>
+      <!-- <a href="#cards"><button id="cam2"><span><img class="one" src="images\icons\future (2).png" alt=""><img class="two" src="images\icons\future (3).png" alt=""></span><p>Section 2</p></button></a> -->
+
+      <a href="youandus.html"><button id="cam3"  class='active'><span><img class="two" src="images\icons\new icons\handshake.png" style="width:35px;" alt=""></span>
+          <p>You & Us</p>
+        </button></a>
+
+      <a href="whatsnew.html"><button id="cam6" ><span><img class="two" style="width:40px;" src="images\icons\new icons\whats_sm.png" alt=""></span>
+          <p>What's New</p>
+        </button></a>
+        <span class='close'>&times</span>
+    </div>
+
+    <canvas class="webgl"></canvas>
+    <section id="space" class="space">
+
+
+      <div class="new-snip">
+        <div class="swiper mySwiper3">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="slide-wrap">
+              <a href="#contact"><h2 style="color:red;">Biodefence welcomes new pilots for Bioshield</h2></a>
+
+
+            </div>
+            <!-- <img src="https://swiperjs.com/demos/images/nature-2.jpg" /> -->
+          </div>
+        <div class="swiper-slide">
+          <div class="slide-wrap">
+            <a target="_blank" href="https://indianexpress.com/article/india/kerala-to-intensify-raids-as-28000-kg-formalin-laced-fish-seized-5234844/"><h2>Kerala to intensify raids as 28,000 kg formalin-laced fish seized</h2></a>
+
+
+          </div>
+          <!-- <img src="https://swiperjs.com/demos/images/nature-1.jpg" /> -->
+
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-wrap">
+            <a target="_blank" href="https://timesofindia.indiatimes.com/city/guwahati/assam-to-retest-traces-of-chemicals-in-fish-procured-from-outside-state/articleshow/100692318.cms?from=mdr"><h2>Assam to retest traces of chemicals in fish procured from outside state</h2></a>
+
+
+          </div>
+          <!-- <img src="https://swiperjs.com/demos/images/nature-2.jpg" /> -->
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-wrap">
+            <a target="_blank" href="https://english.mathrubhumi.com/news/kerala/chemical-fish-floods-kerala-markets-following-trawling-ban-1.8676768"><h2>Fish laced with chemicals floods Kerala markets after trawling ban</h2></a>
+
+
+          </div>
+          <!-- <img src="https://swiperjs.com/demos/images/nature-2.jpg" /> -->
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-wrap">
+            <a target="_blank" href="https://www.foodsafetynews.com/2023/04/large-multi-country-listeria-outbreak-linked-to-trout/"><h2>Large multi-country Listeria outbreak linked to trout</h2></a>
+
+
+          </div>
+          <!-- <img src="https://swiperjs.com/demos/images/nature-3.jpg" /> -->
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-wrap">
+            <a target="_blank" href="https://timesofindia.indiatimes.com/city/guwahati/fish-chemicals-officials-to-take-action-after-analysing-lab-reports/articleshow/99858167.cms?from=mdr"><h2>Fish chemicals: Officials to take action after analysing lab reports</h2></a>
+
+
+          </div>
+          <!-- <img src="https://swiperjs.com/demos/images/nature-2.jpg" /> -->
+        </div>
+
+
+
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="scroll">
+        <div class="scroll-button">
+          <!-- <p>Scroll</p> -->
+          <div class="scroll-image">
+          <img src="images/arrow-black-trans.png" alt="">
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <section class="cards" id="cards">
+      <div class="swiper mySwiper">
+
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+           <img src="images\new images\food.png" style="object-position:70% center"/>
+           <h3>Innovating food production to <br> achieve zero hunger?</h3>
+
+         </div>
+         <div class="swiper-slide">
+           <img src="images\new images\Robot Arm.jpeg" style="object-position:70% center"/>
+           <h3>Scaling novel agriculture to <br> feed the growing population?</h3>
+           <!-- <a href="https://www.freepik.com/free-photo/smart-robotic-farmers-concept-robot-farmers-agriculture-technology-farm-automation_21347424.htm#query=agritech&position=12&from_view=search&track=sph">Image by user6702303</a> on Freepik -->
+         </div>
+         <div class="swiper-slide">
+           <img src="images\new images\syringe.png" style="object-position:70% center"/>
+           <h3>Researching cutting edge medicine to <br> cure the toughest disease?</h3>
+         </div>
+
+         <div class="swiper-slide">
+           <img src="images\new images\biotech.png" style="object-position:70% center"/>
+           <h3> Inventing new bio-technology to <br> save lives?</h3>
+         </div>
+         <div class="swiper-slide">
+           <img src="images\new images\shield.png" style="object-position:70% center"/>
+           <h3>Upgrading indoor environmental quality <br>for good health & well-being?</h3>
+         </div>
+         <div class="swiper-slide">
+           <img src="images\new images\health.png" style="object-position:70% center"/>
+           <h3>Setting new hygiene standards to <br> minimize infection?</h3>
+         </div>
+
+         <div class="swiper-slide">
+           <img src="images\new images\implants.png" style="object-position:70% center"/>
+           <h3>Developing new implants to <br>empower the differently-abled?</h3>
+         </div>
+
+         <div class="swiper-slide">
+           <img src="images\new images\water.png" / style="object-position:70% center">
+           <h3>Exploring new avenues to <br> combat water scarcity?</h3>
+         </div>
+
+
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+
+        <!-- <h2>Safety and Freshness assured for any fresh produce</h2> -->
+        <h2>Whatever you do, we have your microbial safety issues covered</h2>
+
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <hr>
+      <div class="scroll-image">
+      <img src="images/arrow-black-trans.png" alt="">
+      </div>
+    </section>
+
+    <section id="veed" class="veed">
+      <div class="cont">
+        <button id="mute"><img src="images/unmute1.png" alt=""></button>
+        <button id="play"><img src="images/play1.png" alt=""></button>
+      </div>
+      <div class="scroll-image">
+      <img src="images/arrow-black-trans.png" alt="">
+      </div>
+    </section>
+    <section id="prodcuts" class="prods">
+
+      <div class="prods-holder">
+        <div class="holder-2 holder">
+          <div class="over">
+
+          </div>
+
+          <video src="videos/bioshield h.mp4"autoplay muted loop playsinline >
+
+          </video>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="scroll-image">
+      <img src="images/down.png" alt="">
+      </div>
+</section>
+    <section id="impact" class="impact">
+      <div class="bgImg-cont">
+
+      <img src="images\new images\heroes3-resized.png" alt="">
+      <img src="images\new images\heroes4-resized.png" alt="">
+      <img src="images\new images\heroes5-resized.png" alt="">
+      <img src="images\new images\heroes6-resized.png" alt="">
+      <img src="images\new images\heroes7-resized.png" alt="">
+      <img src="images\new images\heroes8-resized.png" alt="">
+
+      </div>
+      <div class="imp-cont-new">
+        <!-- <img src="https://ik.imagekit.io/768eoiozf/biodefence/heroes2-resized_6eSBA8XTk.png?updatedAt=1685195210100" alt=""> -->
+
+        <img class='there active' src="images\new images\heroes2-resized-new.png" alt="">
+        <img class='there' src="images\new images\heroes2-resized-new.png" alt="">
+        <img class='there' src="images\new images\heroes1-resized-new.png" alt="">
+
+
+        <button><h4>Are You A superhero, yet?</h4></button>
+        <div class="text-cont">
+          <h4 class="first">Have you ever wondered... </h4>
+          <h4 class="second">What is mankind’s greatest threat?</h4>
+          <div class="next-cont">
+          <h5 class="next oone">An asteroid hurtling towards earth</h5>
+          <h5 class="next ttwo">Weapons of mass destruction</h5>
+           <h5 class="next tthree">Global-warming induced climate change</h5>
+           <h5 class="next ffour">Out-of-control artificial intelligence</h5>
+           <h5 class="next ffive">Our own extreme selves </h5>
+           </div>
+
+          <h4 class="continue">How can you help?</h4>
+          <p>The debate can go on, but scientists unanimously agree that <strong>microbial pathogens</strong>  have been and will always be our deadliest enemies. They are far lethal than we give them credit for and they infect billions and kill millions of us every year. Right now, we are in an arms race with them and quite frankly, <em>we are losing!</em>
+</p>
+
+        </div>
+        <div class="p-cont">
+
+  <p><strong>At Biodefence, we’re on a mission to empower you</strong> to take on these formidable foes. With our next-gen technologies and innovative solutions, we aspire to provide you with the tools you need to become the superheroes to tackle not only the massive socioeconomic problems they pose in our day to day lives, but also in our war against antimicrobial resistance, disease outbreaks and future pandemics. We’re starting by minimizing food waste to achieve zero hunger.</p>
+</-->
+        </div>
+        <button class="ready">Are you Ready?</button>
+      </div>
+
+    </section>
+    <section id="contact" class="contact">
+
+
+      <div class="contact-section-wrap">
+        <h2>Let's Talk</h2>
+
+<h4>TRANSFORM MICROBIAL SAFETY FOR YOUR FRESH PRODUCE</h4>
+
+
+<div class="mailer">
+  <div class="form-container">
+
+<form target="_blank" action="https://formsubmit.co/98b57a7c78a0313356eb168b9a1ad512" method="POST">
+
+
+
+    <div class="col">
+      <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+      <button type="submit">Let's talk</button>
+    </div>
+
+
+
+
+</form>
+</div>
+  <!-- <input type="email" name="" value="" placeholder="name@example.com"required>
+  <button type="button" name="button">let's talk</button> -->
+</div>
+
+      </div>
+
+
+      <div id="real-footer">
+        <div class="bio-logo">
+        <a href="https://sg.linkedin.com/company/biodefense"><img src="images\linkdin.png" alt="">  </a>
+        </div>
+
+        <div class="contact-details">
+          <div class="phone details">
+            <i class="fa-brands fa-whatsapp"></i> <span> <a href="https://wa.me/+6597209700" target="_blank"> +65 9720 9700</a></span>
+          </div>
+          <div class="email details">
+            <i class="fa-solid fa-at"></i> <span><a href="mailto:@contact@biodefence.co" target="_blank"> contact@biodefence.co</a> </span>
+          </div>
+        </div>
+        <div class="contact-details">
+
+          <div class="address details">
+            <span> Launchpad @ One-North<br>
+           Singapore 139951</span>
+          </div>
+
+
+        </div>
+        <div class="contact-details">
+          <div class="address details">
+            <span> BioValley, AMTZ Campus<br>
+            Visakhapatnam 530031</span>
+          </div>
+        </div>
+<div class="mobile-details">
+  <div class="contact-details-mobile">
+    <div class="mobile-phone mobile">
+      <span> <a href="https://wa.me/+6597209700" target="_blank"> +65 9720 9700</a></span>
+    </div>
+    <div class="mobile-email mobile">
+    <span><a href="mailto:@contact@biodefence.co" target="_blank"> contact@biodefence.co</a> </span>
+    </div>
+  </div>
+
+
+    <div class="mobile-address mobile">
+      <span> Launchpad @ One-North<br>
+       Singapore 139951</span>
+    </div>
+
+
+
+
+    <div class="mobile-address mobile">
+      <span> BioValley, AMTZ Campus <br>
+      Visakhapatnam 530031</span>
+    </div>
+
+</div>
+      <div class="footer-swiper-wrap">
+
+      <div class="header-cont">
+      <h3>Supported by</h3>
+      </div>
+
+        <div class="swiper mySwiper2">
+
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images\footer slide images\Enterprise-SG-Logo.png" alt="BioDefence Enterprise-SG-LOGO"></div>
+        <div class="swiper-slide"><img src="images\footer slide images\AMTZ.jpeg" alt="BioDefence-Footer-AMTZ-GREEN-LOGO"></div>
+        <div class="swiper-slide"><img src="images\footer slide images\Plug_and_Play_Logo_HR.png" alt="BioDefence-Footer-PLUG-AND-PLAY-LOGO"></div>
+        <div class="swiper-slide"><img src="images\footer slide images\2020_ACE-Logo_Black-Font-1024x398-1.png" alt="BioDefence-Footer-ACE-LOGO"></div>
+        <div class="swiper-slide"><img src="images\footer slide images\Temasek-Foundation_FC-scaled-e1641523668772.jpg" alt="BioDefence-Footer-TEMASEK-Foundation-FC-LOGO"></div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+      <div class="bottom-text">
+      <span class="foot">Ⓒ 2023 BIODEFENCE PRIVATE LIMITED, Singapore. All Rights Reserved.</span>
+
+          <div class="copy">
+
+        <ul>
+
+        <li>Terms of Use</li>
+        <li>Privacy Policy</li>
+        <li>Cookie Policy</li>
+        <li>Disclaimer</li>
+        <li>SiteMap</li>
+
+        </ul>
+
+        </div>
+      </div>
+
+
+
+      </div>
+  </section>
+</div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+  <script>
+    var swiper = new Swiper(".mySwiper2", {
+      autoplay:{
+
+        pauseOnMouseEnter:true,
+      },
+      effect: "cube",
+      loop: true,
+      speed: 1000,
+      grabCursor: true,
+      cubeEffect: {
+        shadow: false,
+        centeredSlides: true,
+        // slideShadows: true,
+        // shadowOffset: 20,
+        // shadowScale: 1,
+
+      },
+      // slidesPerView: 'auto',
+      // spaceBetween: 100,
+      // slidesPerGroup: 2,
+      // centeredSlides: true,
+      // loop: true,
+      // autoplay: true,
+    // loopFillGroupWithBlank: true,
+      pagination: {
+        el: "#real-footer .swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+       nextEl: "#real-footer .swiper-button-next",
+       prevEl: "#real-footer .swiper-button-prev",
+     },
+    });
+  </script>
+  <script>
+
+    var swiper = new Swiper(".mySwiper3", {
+      autoplay:{
+        pauseOnMouseEnter:true,
+        delay:2000,
+        // playOneMouseLeave:true,
+      },
+      effect: "cube",
+      loop:false,
+      speed:1200,
+
+      // grabCursor: true,
+      cubeEffect: {
+        shadow: false,
+        slideShadows: false,
+        // shadowOffset: 20,
+        // shadowScale: 0.94,
+      },
+      pagination: {
+        el: ".mySwiper3 .swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+       nextEl: ".mySwiper3 .swiper-button-next",
+       prevEl: ".mySwiper3 .swiper-button-prev",
+     },
+    });
+
+  </script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      autoplay: {
+        pauseOnMouseEnter: true,
+        delay:2000,
+      },
+      effect: "cube",
+      loop: true,
+      speed: 1000,
+      grabCursor: true,
+      cubeEffect: {
+        shadow: true,
+        centeredSlides: true,
+        slideShadows: true,
+        shadowOffset: 20,
+        shadowScale: 1,
+
+      },
+      navigation: {
+        nextEl: ".cards .swiper-button-next",
+        prevEl: ".cards .swiper-button-prev",
+      },
+      pagination: {
+        el: ".cards .swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script>
+  <script>
+  const sections = document.querySelectorAll('section');
+  const navigation = document.querySelector('.navigation');
+  const news = document.querySelectorAll('.news');
+  const drop =document.querySelector('.drop');
+  const nUpdates= document.querySelectorAll('.updates');
+  const close = document.querySelector('.close');
+  const scr= document.querySelector('.scroll');
+  const textScroll= document.querySelector('.text-wrapper');
+  const textCont= document.querySelectorAll('.text-container');
+  const root=document.documentElement;
+  const marqueeElementsDisplayed = getComputedStyle(root).getPropertyValue("--marquee-elements-displayed");
+  const marqueeContent= document.querySelector('.marquee-content');
+  const content = document.querySelector(".page");
+    content.addEventListener("scroll", (event) => {
+       event.preventDefault();
+       // getting the scrolling speed.
+       let deltaY = event.deltaY;
+
+       // decreasing the scrolling speed by 50 times
+       let speed = deltaY / 20;
+
+       // scrolling the content of the div element
+       content.scrollTop += speed;
+    });
+
+textCont.forEach((item,i) => {
+  item.addEventListener('mouseover',function(e){
+
+    item.classList.add('active');
+    item.querySelector('p').classList.add('active');
+    item.querySelector('h2').classList.add('active');
+    let store= e.target;
+    store.classList.add('active')
+
+
+
+    item.querySelector('a').classList.add('active');
+    textCont.forEach((item) => {
+
+      item.style.animationPlayState='paused'
+
+      if(!item.classList.contains('active')){
+      item.classList.add('hide');
+      }
+
+
+
+
+    });
+
+
+  })
+  item.addEventListener('mouseleave',function(){
+    item.classList.remove('active');
+    item.querySelector('p').classList.remove('active');
+    item.querySelector('h2').classList.remove('active');
+    item.querySelector('a').classList.remove('active');
+    textCont.forEach((item) => {
+item.style.animationPlayState='running'
+if(!item.classList.contains('active')){
+item.classList.remove('hide');
+}
+
+
+
+    });
+
+  })
+});
+
+
+
+drop.onclick=function(){
+  drop.classList.add('hide');
+  document.querySelector('.positions').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+close.onclick=function(){
+  document.querySelector('.positions').classList.remove('active');
+  drop.classList.remove('hide');
+  document.body.style.overflowX='hidden';
+  document.body.style.overflowY='scroll';
+}
+
+
+
+
+function reset(){
+  for(let i=0;i<navigation.children.length;i++){
+  navigation.children[i].classList.remove('selected');
+  }
+
+}
+scr.onclick=function(){
+  window.scrollTo({
+
+    top:(window.innerHeight),
+    behavior:'smooth'
+  })
+}
+  window.addEventListener('scroll',function(){
+    const scrollTop= window.scrollY;
+    sections.forEach(function(section,i){
+      if(section.offsetTop < scrollTop + window.innerHeight/2 && scrollTop< section.offsetTop + window.innerHeight/2 ){
+        reset();
+        navigation.children[i].classList.add('selected');
+
+      }
+    })
+  })
+  const hare= document.querySelector('.cards .scroll-image');
+  const hare2= document.querySelector('.veed .scroll-image');
+  const hare3= document.querySelector('.prods .scroll-image');
+  hare.addEventListener('click',function(){
+
+    window.scrollTo({
+      top:(2*window.innerHeight-5),
+      behavior:'smooth'
+    })
+
+  })
+  hare2.addEventListener('click',function(){
+
+    window.scrollTo({
+      top:(3*window.innerHeight-5),
+      behavior:'smooth'
+    })
+
+  })
+  hare3.addEventListener('click',function(){
+
+    window.scrollTo({
+      top:(4*window.innerHeight-5),
+      behavior:'smooth'
+    })
+
+  })
+  document.querySelector('.ready').addEventListener('mouseover',function(){
+    document.querySelectorAll('.imp-cont-new img')[1].classList.add('hide');
+    document.querySelectorAll('.imp-cont-new img')[1].classList.remove('active');
+    document.querySelectorAll('.imp-cont-new img')[2].classList.remove('hide');
+    document.querySelectorAll('.imp-cont-new img')[2].classList.add('active');
+  })
+  document.querySelector('.ready').addEventListener('mouseleave',function(){
+    document.querySelectorAll('.imp-cont-new img')[2].classList.add('hide');
+    document.querySelectorAll('.imp-cont-new img')[2].classList.remove('active');
+    document.querySelectorAll('.imp-cont-new img')[1].classList.remove('hide');
+    document.querySelectorAll('.imp-cont-new img')[1].classList.add('active');
+  })
+  document.querySelector('.ready').addEventListener('click',function(){
+    document.querySelectorAll('.imp-cont-new img')[1].style.display='none';
+    document.querySelectorAll('.imp-cont-new img')[2].style.display='none';
+    document.querySelectorAll('.imp-cont-new img')[0].classList.remove('hide');
+    document.querySelectorAll('.imp-cont-new img')[0].classList.add('active');
+    document.querySelectorAll('.imp-cont-new img')[0].src='./images/new images/heroes1-resized-new.png';
+
+    setTimeout(function(){
+
+      window.scrollTo({
+        top:(5*window.innerHeight),
+        behavior:'smooth'
+      })
+    },500)
+
+  })
+  document.querySelectorAll('.navigation li').forEach(function(item,i){
+    item.addEventListener('click',function(){
+      window.scrollTo({
+
+
+
+          top: (i * (window.innerHeight)-6),
+          behavior: 'smooth'
+
+
+      })
+    })
+  })
+  let food,water,shield,implants,biotech,robotArm,syringe,health,holdVideo;
+
+  holdVideo=document.querySelector('.holder-2 video');
+
+let portrait = window.matchMedia("(orientation: portrait)");
+portrait.addEventListener('change',function(e){
+  if(e.matches){
+    holdVideo.src='./videos/bioshield m.mp4';
+  }
+  else{
+    holdVideo.src='./videos/bioshield h.mp4';
+  }
+})
+if(window.matchMedia("(orientation: landscape)")){
+  holdVideo.src="./videos/bioshield h.mp4";
+}
+window.addEventListener('resize',function(){
+  if(window.innerWidth<900){
+    holdVideo.src='./videos/bioshield m.mp4';
+  }
+  else {
+    holdVideo.src='./videos/bioshield h.mp4';
+  }
+})
+
+if(window.matchMedia("(pointer: coarse)").matches){
+  holdVideo.src='./videos/bioshield m.mp4'
+}
+else if(window.matchMedia("(pointer: coarse)").matches && window.innerWidth <400){
+  holdVideo.src='./videos/bioshield s.mp4'
+}
+let options = {
+  // root: document.querySelector(".impact"),
+  // rootMargin: "0px",
+  threshold: .8,
+};
+let options2 = {
+  // root: document.querySelector(".cards"),
+  // rootMargin: "0px",
+  threshold: .4,
+};
+let observer = new IntersectionObserver(callback, options);
+let observer2 =new IntersectionObserver(callback2,options2);
+function callback(entries){
+  entries.forEach(entry => {
+    entry.target.classList.toggle('active', entry.isIntersecting)
+    if (entry.isIntersecting) observer.unobserve(entry.target)
+  });
+}
+function callback2(entries){
+  entries.forEach(entry => {
+    entry.target.classList.toggle('active', entry.isIntersecting)
+    // if (entry.isIntersecting) observer.unobserve(entry.target)
+  });
+}
+observer.observe(document.querySelector('.text-cont'));
+observer2.observe(document.querySelector('.cards .swiper'));
+    var buts = document.querySelectorAll('.positions span');
+    var mages = document.querySelectorAll('.positions a');
+    const impCont= document.querySelector('.imp-cont-new button');
+    impCont.style.display='none';
+    const conti=document.querySelector('.continue');
+    const nxt=document.querySelectorAll('.next');
+    function fear(){
+      document.querySelectorAll('.bgImg-cont img').forEach((item)=>{
+        item.classList.remove('active');
+
+      })
+    }
+nxt.forEach((nx)=>{
+  nxt.forEach((items,i)=>{
+    items.addEventListener('mouseover',function(e){
+      document.querySelectorAll('.there').forEach((item)=>{
+        item.classList.remove('active');
+        item.classList.add('hide');
+      })
+
+
+if(e.target.classList.contains('oone')){
+
+  fear();
+  document.querySelectorAll('.bgImg-cont img')[i].classList.add('active');
+   document.querySelector('.imp-cont-new img').style.opacity='0';
+}
+else if(e.target.classList.contains('ttwo')){
+  fear();
+
+  document.querySelectorAll('.bgImg-cont img')[i].classList.add('active');
+   document.querySelector('.imp-cont-new img').style.opacity='0';
+}
+else if(e.target.classList.contains('tthree')){
+  fear();
+
+  document.querySelectorAll('.bgImg-cont img')[i].classList.add('active');
+   document.querySelector('.imp-cont-new img').style.opacity='0';
+}
+else if(e.target.classList.contains('ffour')){
+  fear();
+
+  document.querySelectorAll('.bgImg-cont img')[i].classList.add('active');
+   document.querySelector('.imp-cont-new img').style.opacity='0';
+}
+else if(e.target.classList.contains('ffive')){
+  fear();
+
+  document.querySelectorAll('.bgImg-cont img')[i].classList.add('active');
+   document.querySelector('.imp-cont-new img').style.opacity='0';
+}
+    })
+  })
+  nx.addEventListener('click',function(){
+
+    // console.log(nx.classList)
+    nx.classList.remove('next');
+    setTimeout(function(){
+    nx.classList.add('move');
+  },300)
+  setTimeout(function(){
+    nx.classList.add('active');
+document.querySelectorAll('.imp-cont-new img')[0].style.opacity='0';
+document.querySelector('.next-cont').style.display='none';
+// document.querySelectorAll('.imp-cont-new img')[1].style.opacity='0';
+    // nx.style.position='absolute';
+    // nx.style.transform="translateY:(-150%)";
+  },500)
+
+
+
+setTimeout(function(){
+  document.querySelector('.imp-cont-new img').src='https://ik.imagekit.io/768eoiozf/biodefence/heroes8-resized_4jZd7QmZ6M.png?updatedAt=1685195210238';
+  // document.querySelectorAll('.there')[1].classList.add('active');
+  document.querySelector('.imp-cont-new img').classList.add('active2');
+  fear();
+},1500);
+
+    // document.querySelector('.first').innerText=nx.innerText;
+    // for(let i=0;i=nxt.length;i++){
+    //   if(!nxt[i].classList.contains('move')){
+    //     console.log(nxt[i]);
+    //   }
+    // }
+    nxt.forEach((item,i)=>{
+
+      if(item.classList.contains('next')){
+      // item.style.display='none'  ;
+      item.classList.add('active');
+
+      }
+    });
+
+    setTimeout(function(){
+      document.querySelector('.text-cont p').classList.add('active');
+      // conti.style.display='inline-block';
+      conti.classList.add('active');
+
+    },1000)
+// setTimeout(function(){
+//     nxt.forEach(cleear);
+// },500)
+
+
+
+  })
+})
+
+document.querySelector('.second').onanimationend = ()=>{
+
+  document.querySelector('.second').classList.add('active');
+}
+
+
+    conti.addEventListener('click',function(){
+
+      conti.classList.add('hide');
+      conti.classList.remove('active');
+      document.querySelector('.p-cont').classList.toggle('active');
+      document.querySelector('.text-cont p').style.display='none';
+      document.querySelector('.first').style.display='none';
+      document.querySelector('.second').style.display='none';
+      document.querySelector('.move').style.display='none';
+
+
+      setTimeout(function(){
+
+
+        document.querySelector('.ready').classList.add('active');
+        document.querySelector('.imp-cont-new img').classList.remove('active2');
+        // document.querySelector('.imp-cont-new img').src='https://ik.imagekit.io/768eoiozf/biodefence/heroes1-resized_E2MMS5U0Ra.png?updatedAt=1685195210178';
+        document.querySelectorAll('.there')[1].classList.add('active');
+        document.querySelectorAll('.there')[0].classList.remove('active');
+    },1200);
+
+    })
+    const currentLocation = location.href;
+
+    mages.forEach(item => {
+
+      if (item.href === currentLocation) {
+
+        item.querySelector('button').classList.add('active');
+
+      }
+    })
+
+
+
+
+
+    const vid = document.getElementById('load-vid');
+    vid.playbackRate = 2;
+    const set2 = document.getElementById('set2');
+    const set3 = document.getElementById('set3');
+    const box1 = document.querySelector('.sanibot');
+    const box2 = document.querySelector('.trix');
+
+
+
+    window.addEventListener("load", function() {
+
+
+
+      vid.addEventListener('ended', function() {
+        document.querySelector('.vid-loader').classList.add("hidden");
+        // document.body.style.overflowX="hidden";
+        // document.body.style.overflowY="scroll";
+
+
+      })
+    });
+  </script>
+  <!-- <script type="importmap">
+    {
+    "imports": {
+      "three": "https://unpkg.com/three@0.139.1/build/three.module",
+      "three/": "https://unpkg.com/three@0.139.1/"
+    }
+  }
+</script> -->
+  <script type="module" src="./modules/three.module.js">
+
+  </script>
+
+
+
+  <script src="./scripts/you-us.js" type="module"></script>
+
+
+</body>
+
+</html>
