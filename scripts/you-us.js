@@ -428,6 +428,7 @@ gLoader.load('./3d/dish 2.glb',function(gltf){
   dish.position.set(8,-15,5);
   dish.castShadow=true;
   dish.material.metalness=.2;
+  // dish.material.color = new THREE.Color(0xee0000);
   // dish.receiveShadow=true;
 
   // dish.material= new THREE.MeshBasicMaterial({opacity:0,transparent:true});
@@ -458,7 +459,11 @@ if(window.innerWidth>1000){
   //   overflow:'hidden',
   //
   // },'simultaneously')
-
+  .to(dirLight.color,{
+    r:1,
+    g:0,
+    b:0,
+  },'simultaneously')
   .to(dirLight.position,{
     x:2.5,
     y:2,
@@ -673,16 +678,18 @@ let bioPres;
 gLoader.load('./3d/new assets/while-c.glb',function(gltf){
   scene.add(gltf.scene);
   bio = gltf.scene.children[0];
+  gltf.scene.rotation.z=-.1;
   if(window.innerWidth<600){
-  gltf.scene.scale.set(.02,.02,.02);
-  gltf.scene.position.x=-1.1;
-  gltf.scene.position.y=.15;
+  gltf.scene.scale.set(.016,.016,.016);
+  gltf.scene.position.x=-0;
+  gltf.scene.position.y=-.05;
+
   // gltf.scene.rotation.y=1.65;
   }
   else if(window.innerWidth<800 && window.innerWidth> 601){
-  gltf.scene.scale.set(.045,.045,.045);
-  gltf.scene.position.y=-.25;
-  gltf.scene.position.x=-2.5;
+  gltf.scene.scale.set(.026,.026,.026);
+  gltf.scene.position.y=-.08;
+  gltf.scene.position.x=0;
 
   // gltf.scene.rotation.y=1.65;
   }
@@ -690,7 +697,7 @@ gLoader.load('./3d/new assets/while-c.glb',function(gltf){
   gltf.scene.scale.set(.03,.03,.03);
   gltf.scene.position.x=0;
   gltf.scene.position.y=-.1;
-  gltf.scene.rotation.z=-.1;
+
   // gltf.scene.rotation.y=1.65;
   // gltf.scene.rotation.y=(Math.PI)/2;
   }
@@ -710,17 +717,17 @@ gLoader.load('./3d/new assets/were.glb',function(gltf){
   scene.add(gltf.scene);
   bioPres = gltf.scene.children[0];
   if(window.innerWidth<600){
-  gltf.scene.scale.set(.02,.02,.02);
-  gltf.scene.position.x=-1.1;
-  gltf.scene.position.y=.15;
-  gltf.scene.rotation.y=1.65;
+  gltf.scene.scale.set(.016,.016,.016);
+  gltf.scene.position.x=0;
+  gltf.scene.position.y=-.15;
+  // gltf.scene.rotation.y=1.65;
   }
   else if(window.innerWidth<800 && window.innerWidth> 601){
-  gltf.scene.scale.set(.045,.045,.045);
-  gltf.scene.position.y=-.25;
-  gltf.scene.position.x=-2.5;
+  gltf.scene.scale.set(.026,.026,.026);
+  gltf.scene.position.y=-.2;
+  gltf.scene.position.x=0;
 
-  gltf.scene.rotation.y=1.65;
+  // gltf.scene.rotation.y=1.65;
   }
   else if(window.innerWidth>801){
   gltf.scene.scale.set(.03,.03,.03);
@@ -772,6 +779,9 @@ gLoader.load('./3d/new assets/handshake.glb',function(gltf){
   shake.rotation.y=(Math.PI)/2;
   shake.position.x=-0.25;
   shake.position.z= -1;
+  if(window.innerWidth<600){
+    shake.scale.set(.3,.3,.3);
+  }
 
   // shake.material= new THREE.MeshBasicMaterial({color:0x000000});
 
@@ -1063,26 +1073,20 @@ const cards=document.querySelector('.cards');
 const card= document.querySelectorAll('.card');
 const veed=document.querySelector('.veed');
 const space=document.querySelector('.space');
-function diirAnim(){
+
   let dirAnim =gsap.timeline({
   repeat:-1,
   yoyo:true,
   });
   dirAnim
-  .to(dirLight.color,{
-    r:1,
-    g:0,
-    b:0,
-    duration:.5,
-    ease:'none'
-  },'simultaneously')
+
   .to(dirLight.position,{
     x:-2,
     duration:1,
     ease:'power1.out',
   })
   .to(dirLight,{
-    intensity:2,
+    intensity:1.2,
     duration:2,
   })
   .to(dirLight.position,{
@@ -1099,7 +1103,6 @@ function diirAnim(){
     intensity:1,
     duration:2,
   })
-}
 
 
 //sectionOne timeline
@@ -1177,6 +1180,12 @@ sectionOne
   scale:0,
   delay:.5,
 })
+.to(dirLight.color,{
+  r:1,
+  g:1,
+  b:1,
+
+},'simultaneously')
 // .to(document.body,{
 //   overflow:'hidden',
 // })
