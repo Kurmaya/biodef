@@ -939,10 +939,82 @@ margin-left:6%;
   width:30px;
   height: 30px;
 }
+.founders-holder{
+  width:90%;
+  height: 100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+}
+.amit-holder,.sheetal-holder{
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width:42%;
+  position: relative;
+  /* top:10%; */
+  height: 70%;
+  margin: auto;
 
+}
+.person-img-holder{
+  width:150px;
+  height: 150px;
+  position: relative;
+  margin:2% auto 0 auto ;
+border-radius: 50%;
+filter:drop-shadow(1px 0px .5rem rgba(0,0,0,.6));
+position: relative;
+
+}
+.person-img-holder img{
+  /* position: absolute; */
+  width:100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.person-info{
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+/* margin: 0 auto; */
+line-height: 1.5;
+}
+.person-info h2{
+  font-size: 2rem;
+  color:rgba(250,0,0,1);
+  font-family: 'Righteous';
+
+  /* filter:drop-shadow(3px 2px .2rem rgba(150,0,0,.2)); */
+}
+.person-info h2:before{
+  content:'';
+  position: absolute;
+  bottom:0;
+  border-bottom: 5px solid red;
+}
+.person-info h3{
+  color:red;
+  font-family: 'Righteous';
+  /* filter:drop-shadow(3px 2px .2rem rgba(150,0,0,.2)); */
+}
+.person-info p{
+  font-family: 'Quantico';
+  font-size:1.1rem;
+  text-align: center;
+  padding:1rem 0;
+
+
+}
+.person-info p:nth-of-type(2){
+  max-width: 75%;
+}
 .prods .scroll-image{
   position: absolute;
-  bottom:10%;
+  bottom:5%;
   left:50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -2151,9 +2223,9 @@ cursor: pointer;
   position: fixed;
 
   /* bottom:-10%; */
-  /* top:-10%; */
+  top:7%;
   left:10px;
-  height: 100%;
+  height: 80%;
   /* height: 600px; */
   display: flex;
   flex-direction: column;
@@ -2164,6 +2236,7 @@ cursor: pointer;
 
   width: 5%;
   z-index: 3;
+
   /* display: none; */
 
 }
@@ -2375,9 +2448,10 @@ max-height: 70%;
   display: none!important;
 }
 .prods-holder{
-  width:90%;
-  height: 96vh;
-  margin: .2% 7% auto;
+  width:85%;
+  height: 85vh;
+  /* margin: 1% auto auto auto; */
+  margin: 3% auto auto;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -2386,26 +2460,32 @@ max-height: 70%;
   background: transparent!important;
   overflow: hidden;
 }
+.prod-canvas{
+  width:90%;
+  height:100%;
+  /* margin:2% auto auto; */
+  margin: auto;
+}
 .prevv,.nexxt{
   position: absolute;
-  top:50%;
+  top:80%;
   width:30px!important;
-  transform: translateY(-50%);
-  font-size: 2rem;
+  transform: translateY(-80%);
+  font-size: 3rem;
   transition: .5s ease;
   color:rgba(100,100,100,1);
   z-index: 1000;
 }
 .prevv{
-  left:2%;
-  transform: translateX(-2%);
+  left:30%;
+  transform: translateX(-30%);
 }
 .nexxt{
-  right:2%;
-  transform: translateX(2%);
+  right:30%;
+  transform: translateX(30%);
 }
 .prevv:hover , .nexxt:hover{
-  transform: scale(1.2);
+  transform: scale(1.05);
   cursor: pointer;
 }
 .holder-1,.holder-2,.holder-3{
@@ -2461,7 +2541,7 @@ max-height: 70%;
   position: absolute;
   width:100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   /* border-radius: 15px; */
 
 
@@ -2473,7 +2553,7 @@ max-height: 70%;
 .holder-2 video{
   object-position: 40% 50%;
 
-  background: black;
+  /* background: black; */
 }
 .holder2 video.active{
   object-position: 7% 0px!important;
@@ -3705,8 +3785,50 @@ opacity: 1;
     transform: translateX(-50%)!important;
     bottom:15%!important;
   }
+  .founders-holder{
+    flex-direction: column;
+    top:-5%;
+    position: relative;
+  }
+  .amit-holder,.sheetal-holder{
+    width:auto;
+  }
+  .person-img-holder{
+    width:90px;
+    height: 90px;
+  }
+  .amit-holder .person-img-holder{
+    position: relative;
+    left: -35%;
+    top: 20%;
+  }
+  .amit-holder .person-info h2 ,.amit-holder .person-info h3{
+    position: relative;
+    left:15%;
+  }
+  .amit-holder h2,.amit-holder h3,.amit-holder p{
+    text-align: right!important;
+  }
+  .sheetal-holder .person-info h2 ,.sheetal-holder .person-info h3{
+    position: relative;
+    right:15%;
+  }
+  .sheetal-holder h2,.sheetal-holder h3,.sheetal-holder p{
+    text-align: left!important;
+  }
+  .sheetal-holder .person-img-holder{
+    position: relative;
+    right: -35%;
+    top: 20%;
+  }
+  .person-info p{
+    width:100%!important;
+  }
+  .person-info p:nth-of-type(2){
+    max-width: 100%!important;
+  }
   .prods .scroll-image{
-    bottom:10%!important;
+    bottom:5%!important;
     width:30px;
     height: 30px;
   }
