@@ -543,7 +543,11 @@ else if(window.innerWidth<1000){
   //   overflow:'hidden',
   //
   // },'simultaneously')
-
+  .to(dirLight.color,{
+    r:1,
+    g:0,
+    b:0,
+  },'simultaneously')
   .to(dirLight.position,{
     x:2.5,
     y:2,
@@ -622,46 +626,15 @@ else if(window.innerWidth<1000){
     duration:1.5,
     ease:'power1.out'
   },'simultaneously')
-  // .to('.holder-1',{
-  //   width:'50vw',
-  //
-  // },'simultaneously')
+
 
   .to('.holder-2',{
     width:'50vw',
   },'simultaneously')
-  // .to('.holder-1 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.4rem',
-  //   top:'75%',
-  //   // y:50,
-  // },'simultaneously')
-  // .to('.holder-2 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   // y:50,
-  //   top:'25%',
-  // },'simultaneously')
-  // .to('.holder-3 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   // y:50,
-  //   top:'75%',
-  // },'simultaneously')
-  // .to(document.body,{
-  //   overflowX:'hidden',
-  //   overflowY:'scroll'
-  // })
+
 }
 
-  // .to(canvas,{
-  //   position:'absolute',
-  //   bottom:'100%',
-  //   left:0,
-  // })
+
 
 
 
@@ -779,6 +752,7 @@ gLoader.load('./3d/new assets/handshake.glb',function(gltf){
   shake.rotation.y=(Math.PI)/2;
   shake.position.x=-0.25;
   shake.position.z= -1;
+
   if(window.innerWidth<600){
     shake.scale.set(.3,.3,.3);
   }
@@ -816,13 +790,9 @@ window.addEventListener('load',function(){
     g:1,
     b:1,
   })
-
-
-
-
-
 })
-console.log(meshes);
+
+
 // groupTwo.add(torus,bio);
 //lights
 const light= new THREE.AmbientLight(0xffffff,.1);
@@ -1132,6 +1102,12 @@ if( window.innerWidth<600 && window.innerWidth>280){
     scale:0,
     delay:.5,
   })
+  .to(dirLight.color,{
+    r:1,
+    g:1,
+    b:1,
+
+  },'simultaneously')
   .to(document.body,{
     overflow:'hidden',
   })
@@ -1226,6 +1202,12 @@ sectionOne
       scale:0,
       delay:.5,
     })
+    .to(dirLight.color,{
+      r:1,
+      g:1,
+      b:1,
+
+    },'simultaneously')
     .to(document.body,{
       overflow:'hidden',
     })
