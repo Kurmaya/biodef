@@ -386,8 +386,18 @@ let coming;
   gLoader.load('./3d/new assets/coming.glb',function(gltf){
     scene.add(gltf.scene);
     coming = gltf.scene;
+
+    if(window.innerWidth>600){
     coming.scale.set(0.15,0.15,0.15);
     coming.position.set(-.95,.6,1);
+    }
+    else if(window.innerWidth<600){
+      coming.scale.set(0.08,0.08,0.08);
+      coming.position.set(-.52,.4,1);
+    }
+
+    console.log(coming);
+    coming.children[0].material = new THREE.MeshBasicMaterial({color:0x202020});
 
   })
 
@@ -729,7 +739,7 @@ gLoader.load('./3d/new assets/imshield.glb',function(gltf){
   if(window.innerWidth<600){
     scene.remove(gltf.scene);
     scene.add(gltf.scene);
-    gltf.scene.scale.set(.02,.02,.02);
+    gltf.scene.scale.set(.08,.08,.08);
 
   // bio.position.x=-34;
   // bio.position.y=-16;
@@ -739,7 +749,7 @@ gLoader.load('./3d/new assets/imshield.glb',function(gltf){
   // gltf.scene.position.y=.25;
   // gltf.scene.position.x=-1.92;
   scene.add(gltf.scene);
-  gltf.scene.scale.set(.035,.035,.035);
+  gltf.scene.scale.set(.15,.15,.15);
   }
   else if(window.innerWidth>801){
     scene.remove(gltf.scene);
@@ -790,7 +800,7 @@ gLoader.load('./3d/new assets/new text.glb',function(gltf){
     localPlane.normal.z=.016;
     tex.scale.set(.034,.034,.034);
     tex.position.z= -.01;
-    tex.position.y= -.3;
+    tex.position.y= .1;
     // tex.position.x=0.1;
     // tex.rotation.z= -.001;
     // tex.rotation.y=.01;
@@ -1601,7 +1611,7 @@ if(window.innerWidth>600 && window.innerWidth<1000 && window.matchMedia("(pointe
 
   .to('.holder-2',{
     width:'90vw',
-    height:'80vh'
+    // height:'80vh'
 
   },'simultaneously')
 
@@ -1644,7 +1654,7 @@ else if(window.innerWidth>1000){
 
   .to('.holder-2',{
     width:'90vw',
-    height:'80vh',
+    // height:'80vh',
   },'simultaneously')
 
 
@@ -1693,7 +1703,7 @@ else if(window.innerWidth>280 && window.innerWidth<600 && window.matchMedia("(po
 
   .to('.holder-2',{
     width:'90vw',
-    height:'80vh'
+    // height:'80vh'
 
   },'simultaneously')
 
@@ -1730,10 +1740,10 @@ holder2.addEventListener('click',function(){
     //   background:'rgba(0,0,0,0)'
     // })
 
-  gsap.to(holder2,{
-    width:'90vw',
-    height:'80vh'
-  })
+  // gsap.to(holder2,{
+  //   width:'90vw',
+  //   height:'80vh'
+  // })
 
 
   }
@@ -1743,25 +1753,25 @@ holder2.addEventListener('click',function(){
   // gsap.to('.holder-2 .over',{
   //   background:'rgba(0,0,0,0)'
   // })
-gsap.to(holder2,{
-  width:'94vw',
-  height:'100vh'
-})
-gsap.to(holder2.querySelector('h2'),{
-  rotateZ:0,
-  opacity:0,
-  fontSize:'1.9rem',
-})
+// gsap.to(holder2,{
+//   width:'94vw',
+//   height:'100vh'
+// })
+// gsap.to(holder2.querySelector('h2'),{
+//   rotateZ:0,
+//   opacity:0,
+//   fontSize:'1.9rem',
+// })
 }
 else if(window.innerWidth<600 && window.innerWidth>280){
   // gsap.to('.holder-2 .over',{
   //   background:'rgba(0,0,0,0)'
   // })
 
-gsap.to(holder2,{
-  width:'100vw',
-  height:'100vh'
-})
+// gsap.to(holder2,{
+//   width:'100vw',
+//   height:'100vh'
+// })
 
 
 

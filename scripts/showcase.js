@@ -222,8 +222,8 @@ function scaleImage(img,ctx){
   var hRatio = canvas.width/canvas.width;
   var vRatio = (canvas.height/canvas.height);
   var ratio = Math.max(hRatio,vRatio);
-  var centerShift_x= (canvas.width-img.width )/5.5;
-  var centerShift_y=(canvas.height-img.height)/3.8;
+  var centerShift_x= (canvas.width-img.width )/5;
+  var centerShift_y=(canvas.height-img.height)/4;
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
   ctx.drawImage(

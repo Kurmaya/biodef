@@ -15,7 +15,7 @@ const mouse = new THREE.Vector2();
 
 //texture
 const textureLoader = new THREE.TextureLoader();
-
+const gui = new dat.GUI();
 
 const planeTexture = textureLoader.load('./textures/world.5292.png');
 const hex = textureLoader.load('./textures/hex2.png');
@@ -148,11 +148,12 @@ renderer.localClippingEnabled=true;
 renderer.setSize(innerWidth,innerHeight);
 renderer.setPixelRatio(devicePixelRatio);
 renderer.setClearColor(0xececec);
+
 renderer.shadowMap.enabled=true;
 renderer.shadowMap.type=THREE.PCFShadowMap;
 // renderer.shadowMap.type=THREE.VSMShadowMap;
 
-
+// scene.background= new THREE.Color('rgb(189, 255, 207)');
  // scene.add(new THREE.GridHelper(16, 16, "yellow", "black"));
 //clipping planes
 const localPlane = new THREE.Plane( new THREE.Vector3( 0,0, .1 ),-1.65);
@@ -320,6 +321,7 @@ const torusMaterial= new THREE.PointsMaterial({size:0.01,transparent:true,opacit
 const torus2Material= new THREE.PointsMaterial({color:0xff0000,size:0.008,transparent:true,opacity:0});
 const helper = new THREE.PlaneHelper(localPlane2,2,0x00ff00);
 const helper2 = new THREE.PlaneHelper(localPlane3,2,0x0000ff);
+
 // scene.add(helper,helper2);
 const torus= new THREE.Points(torusGeo,torusMaterial);
 const torus2= new THREE.Points(torusGeo2,torus2Material);
@@ -439,14 +441,13 @@ scene.add(group);
 // console.log(gltf.scene,dish);
   let sectionFour = gsap.timeline({
     scrollTrigger:{
-      trigger:'.impact',
+      trigger:'.prods',
       start:'top top',
       end:'bottom',
       snap:1,
       scrub:true,
       ease:'none',
       duration:2,
-
     }
 
   });
@@ -464,22 +465,6 @@ if(window.innerWidth>1000){
     z:3.5
   })
 
-  // .to(impactVideoCube.rotation,{
-  //   y:2,
-  //   duration:1.8,
-  //   ease:'none'
-  // })
-  // .to(impactVideoCube.position,{
-  //   z:5,
-  //   duration:2.5,
-  //   ease:'power1'
-  // })
-  //
-  // .to(impactVideoMat,{
-  //   opacity:0,
-  //   duration:1,
-  //   ease:'none'
-  // },'simultaneously')
   .to(shadowPlane.material,{
     opacity:.8,
     delay:1.2,
@@ -546,44 +531,6 @@ if(window.innerWidth>1000){
     duration:1.5,
     // ease:'power1.out'
   },'simultaneously')
-  // .to(mail.position,{
-  //   x:0,
-  //   y:-20,
-  //   z:10,
-  // },'simultaneously')
-  // .to('.holder-1',{
-  //   width:'50vw',
-  //
-  // },'simultaneously')
-
-  .to('.holder-2',{
-    width:'50vw',
-  },'simultaneously')
-  // .to('.holder-1 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.4rem',
-  //   top:'75%',
-  //   // y:50,
-  // },'simultaneously')
-  // .to('.holder-2 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   // y:50,
-  //   top:'25%',
-  // },'simultaneously')
-  // .to('.holder-3 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   // y:50,
-  //   top:'75%',
-  // },'simultaneously')
-  // .to(document.body,{
-  //   overflowX:'hidden',
-  //   overflowY:'scroll'
-  // })
 }
 else if(window.innerWidth<1000){
   sectionFour
@@ -598,22 +545,6 @@ else if(window.innerWidth<1000){
     z:3.5
   })
 
-  // .to(impactVideoCube.rotation,{
-  //   y:2,
-  //   duration:1.8,
-  //   ease:'none'
-  // })
-  // .to(impactVideoCube.position,{
-  //   z:5,
-  //   duration:2.5,
-  //   ease:'power1'
-  // })
-  //
-  // .to(impactVideoMat,{
-  //   opacity:0,
-  //   duration:1,
-  //   ease:'none'
-  // },'simultaneously')
   .to(shadowPlane.position,{
     x:-1.1,
     duration:1,
@@ -737,113 +668,157 @@ else if(window.innerWidth<1000){
   // gui.add(dish.rotation,'z',-2,2).name('dish r z');
 
 })
+
 let bioPres;
-gLoader.load('./3d/new assets/while.glb',function(gltf){
+gLoader.load('./3d/new assets/while-c.glb',function(gltf){
   scene.add(gltf.scene);
   bio = gltf.scene.children[0];
   if(window.innerWidth<600){
   gltf.scene.scale.set(.02,.02,.02);
   gltf.scene.position.x=-1.1;
   gltf.scene.position.y=.15;
+  // gltf.scene.rotation.y=1.65;
   }
   else if(window.innerWidth<800 && window.innerWidth> 601){
-  gltf.scene.scale.set(.035,.035,.035);
-  gltf.scene.position.y=.25;
-  gltf.scene.position.x=-1.92;
+  gltf.scene.scale.set(.045,.045,.045);
+  gltf.scene.position.y=-.25;
+  gltf.scene.position.x=-2.5;
+
+  // gltf.scene.rotation.y=1.65;
   }
   else if(window.innerWidth>801){
-  gltf.scene.scale.set(.07,.07,.07);
-  gltf.scene.position.x=-3.9;
-  gltf.scene.position.y=-.7;
-  gltf.scene.roation.y=2;
+  gltf.scene.scale.set(.03,.03,.03);
+  gltf.scene.position.x=0;
+  gltf.scene.position.y=-.1;
+  gltf.scene.rotation.z=-.1;
+  // gltf.scene.rotation.y=1.65;
+  // gltf.scene.rotation.y=(Math.PI)/2;
   }
 
-  bio.rotation.z= 1.6;
+  // bio.rotation.z= 1.6;
 
 
 
 
 
-  bio.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30})
+  bio.material= new THREE.MeshPhongMaterial({color:0x000000,shininess:40,reflectivity:30,clippingPlanes:[whilePlane]});
 
 
 
 })
+gLoader.load('./3d/new assets/were.glb',function(gltf){
+  scene.add(gltf.scene);
+  bioPres = gltf.scene.children[0];
+  if(window.innerWidth<600){
+  gltf.scene.scale.set(.02,.02,.02);
+  gltf.scene.position.x=-1.1;
+  gltf.scene.position.y=.15;
+  gltf.scene.rotation.y=1.65;
+  }
+  else if(window.innerWidth<800 && window.innerWidth> 601){
+  gltf.scene.scale.set(.045,.045,.045);
+  gltf.scene.position.y=-.25;
+  gltf.scene.position.x=-2.5;
 
-let tex;
+  gltf.scene.rotation.y=1.65;
+  }
+  else if(window.innerWidth>801){
+  gltf.scene.scale.set(.03,.03,.03);
+  gltf.scene.position.x=0;
+  gltf.scene.position.y=-.1;
+  // gltf.scene.rotation.y=1.65;
+  // gltf.scene.rotation.y=(Math.PI)/2;
+  }
 
-// gLoader.load('./3d/more 2.glb',function(gltf){
-// gLoader.load('./3d/new assets/new text.glb',function(gltf){
-//   scene.add(gltf.scene);
-//   // gltf.scene.scale.set(0.28,.28,28);
-//   // console.log(gltf.scene);
-//
-//   tex= gltf.scene.children[0];
-//   // console.log(localPlane.normal.z);
-// // console.log(tex);
-// // tex.material= new THREE.MeshBasicMaterial({color:0x0000});
-//   if(window.innerWidth<600){
-//   localPlane.normal.z=.01;
-//   tex.scale.set(.018,.018,.018);
-//   tex.position.z= -.01;
-//   tex.position.y= -.1;
-//   tex.position.x=-0.01;
-//
-//
-//   }
-//
-//   else if(window.innerWidth>601 && window.innerWidth<1000){
-//     localPlane.normal.z=.016;
-//     tex.scale.set(.034,.034,.034);
-//     tex.position.z= -.01;
-//     tex.position.y= -.3;
-//     // tex.position.x=0.1;
-//     // tex.rotation.z= -.001;
-//     // tex.rotation.y=.01;
-//   }
-//   else if(window.innerWidth>1000){
-//     // tex.scale.set(.033,.0315,.0315);
-//     tex.scale.set(.039,.039,.039);
-//     tex.position.z= -.01;
-//     // tex.position.y= -.01;
-//     tex.position.y= 0.2;
-//     // tex.position.x=-0.07;
-//     tex.position.x=0.15;
-//     tex.position.x=0;
-//     // tex.rotation.z= -.001;
-//     // tex.rotation.y=.01;
-//     localPlane.normal.z=.01;
-//   }
-//
-//   tex.material= new THREE.MeshBasicMaterial({
-//     // color:0xff0000,
-//     color:0x202020,
-//     // clippingPlanes:[localPlane],
-//     // clipShadows:true
-//   })
-// // console.log(groupTwo);
-//
-//   function texAnim(){
-//     requestAnimationFrame(texAnim)
-//     tex.rotation.y+=0.002;
-//   }
-// // texAnim();
-// //   gui.add(tex.rotation,'x',-5,5).name('text rotation x');
-// // gui.add(tex.rotation,'y',-5,5).name('text rotation y');
-// // gui.add(tex.position,'y',-5,5).name('text position y');
-// // gui.add(tex.scale,'x',.02,.05).name('text scale x');
-// // gui.add(tex.scale,'y',.02,.05).name('text scale y');
-// // gui.add(tex.scale,'z',.02,.05).name('text scale z');
-// // gui.add(tex.position,'x',-1,1).name('text position x');
-// // gui.add(tex.rotation,'z',-1,1).name('text rotation z');
-//
-// })
-groupTwo.add(tex,torus,bio);
+  // bioPres.rotation.z= 1.6;
+
+
+
+
+
+  bioPres.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30,clippingPlanes:[werePlane]});
+
+
+
+})
+const whilePlane = new THREE.Plane(new THREE.Vector3(-0.18,-.44,0),-.77);
+const werePlane = new THREE.Plane(new THREE.Vector3(-2.95,-.44,0),-.77);
+const helper3 = new THREE.PlaneHelper(whilePlane,3,0x0000ff);
+const helper4 = new THREE.PlaneHelper(werePlane,3,0xab00ff);
+
+
+// scene.add(whilePlane,werePlane);
+gui.add(whilePlane.normal,'x',-4,4).name('wPlane px ');
+gui.add(whilePlane.normal,'y',-.18,.35).name('wPlane py ');
+gui.add(whilePlane.normal,'z',-4,4).name('wPlane pz ');
+gui.add(whilePlane,'constant',-5,5).name('wplane');
+gui.add(werePlane.normal,'x',-2.95,0).name('wePlane px ');
+gui.add(werePlane.normal,'y',.18,-.35).name('wePlane py ');
+gui.add(werePlane.normal,'z',-4,4).name('wePlane pz ');
+gui.add(werePlane,'constant',-5,5).name('weplane');
+
+// gui.add(whilePlane.rotation,'x',-4,4).name('wPlane rx ');
+// gui.add(whilePlane.rotation,'y',-4,4).name('wPlane rx ');
+// gui.add(whilePlane.rotation,'z',-4,4).name('wPlane rz ');
+let shake,tex;
+  let meshes=[];
+  function hand(){
+
+
+gLoader.load('./3d/new assets/handshake.glb',function(gltf){
+  scene.add(gltf.scene);
+  shake=gltf.scene;
+  shake.scale.set(.5,.5,.5);
+  shake.rotation.y=(Math.PI)/2;
+  shake.position.x=-0.25;
+  shake.position.z= -1;
+
+  // shake.material= new THREE.MeshBasicMaterial({color:0x000000});
+
+shake.traverse(e=>(e.isMesh||e.isSkinnedMesh)&&meshes.push(e))
+
+meshes.forEach( mesh=>{
+//process this mesh...
+// mesh.material= new THREE.MeshLambertMaterial({reflectivity:0,emissive:false});
+
+dirLight.exclude= mesh;
+
+})
+
+  // console.log(gltf.scene)
+})
+}
+hand();
+window.addEventListener('load',function(){
+  gsap.to(whilePlane.normal,{
+    y:.35,
+    duration:1.5,
+    ease:'power1'
+  }),
+  gsap.to(werePlane.normal,{
+    x:0,
+    duration:1,
+    delay:1.5,
+    ease:'power1.Out'
+  })
+  gsap.to(dirLight.color,{
+    r:1,
+    g:1,
+    b:1,
+  })
+
+
+
+
+
+})
+console.log(meshes);
+// groupTwo.add(torus,bio);
 //lights
 const light= new THREE.AmbientLight(0xffffff,.1);
 const dirLight = new THREE.DirectionalLight(0xff0000,1)
 // dirLight.castShadow=true;
-
+dirLight.exclude = [meshes,bioPres];
 
 dirLight.position.set(-1.39,-1.4,3.5);
 // dirLight.decay=10;
@@ -853,7 +828,7 @@ pLight.position.set(-3.3,-12,-1.1);
 pLight.castShadow=true;
 scene.add(dirLight,pLight);
 
-const gui = new dat.GUI();
+
 // gui.add(camera.position,'x',-2,2).name('camera p x');
 // gui.add(camera.position,'y',-2,2).name('camera p y');
 // gui.add(camera.position,'z',-2,2).name('camera p z');
@@ -934,17 +909,7 @@ window.addEventListener("orientationchange", function(e) {
   }
 }, false);
 // console.log(curvedPanel);
-// function callback(){
-//   if(window.matchMedia("(pointer: coarse)").matches && window.matchMedia("(orientation: landscape)").matches )
-//   geomPar.width=6.7;
-//   geomPar.height=4;
-//   geom.needsUpdate=true;
-//   curvedPanel.geometry.parameters.width=6.7;
-//   curvedPanel.geometry.parameters.height=4;
-//   curvedPanel.geometry.parameters.needsUpdate=true;
-//   curvedPanel.needsUpdate=true;
-//
-// }
+
 window.addEventListener('resize', () =>{
   //update sizes
   sizes.width=window.innerWidth;
@@ -1048,6 +1013,7 @@ function animate(){
 
 
 
+
   renderer.render(scene,camera);
   requestAnimationFrame(animate);
   camera.updateProjectionMatrix();
@@ -1055,9 +1021,7 @@ function animate(){
 
 
   torus2.rotation.z+=0.0005;
-  // impactVideoCube.rotation.y+=0.001;
-  // impactVideoCube.rotation.x+=0.001;
-  // impactVideoCube.rotation.z+=0.001;
+
   // dish.rotation.z+=.001;
 
 
@@ -1072,6 +1036,7 @@ if(mouseX < window.innerWidth || mouseY <window.innerHeight ){
 particlesMesh.rotation.x = (mouseY *0.00005)/2;
 particlesMesh.rotation.y = (mouseX *0.00003)/2;
 curvedPanel.rotation.y= -(mouseX *0.00001);
+
 // curvedPanel.rotation.z= -(mouseY *0.00001);
 
 }
@@ -1098,34 +1063,44 @@ const cards=document.querySelector('.cards');
 const card= document.querySelectorAll('.card');
 const veed=document.querySelector('.veed');
 const space=document.querySelector('.space');
-let dirAnim =gsap.timeline({
-repeat:-1,
-yoyo:true,
-});
-dirAnim
-.to(dirLight.position,{
-  x:-2,
-  duration:1,
-  ease:'power1.out',
-})
-.to(dirLight,{
-  intensity:2,
-  duration:2,
-})
-.to(dirLight.position,{
-  x:0,
-  duration:1,
-  ease:'power1.out',
-})
-.to(dirLight.position,{
-  x:2,
-  duration:1,
-  ease:'power1.out'
-})
-.to(dirLight,{
-  intensity:1,
-  duration:2,
-})
+function diirAnim(){
+  let dirAnim =gsap.timeline({
+  repeat:-1,
+  yoyo:true,
+  });
+  dirAnim
+  .to(dirLight.color,{
+    r:1,
+    g:0,
+    b:0,
+    duration:.5,
+    ease:'none'
+  },'simultaneously')
+  .to(dirLight.position,{
+    x:-2,
+    duration:1,
+    ease:'power1.out',
+  })
+  .to(dirLight,{
+    intensity:2,
+    duration:2,
+  })
+  .to(dirLight.position,{
+    x:0,
+    duration:1,
+    ease:'power1.out',
+  })
+  .to(dirLight.position,{
+    x:2,
+    duration:1,
+    ease:'power1.out'
+  })
+  .to(dirLight,{
+    intensity:1,
+    duration:2,
+  })
+}
+
 
 //sectionOne timeline
 let sectionOne = gsap.timeline({
@@ -1182,38 +1157,12 @@ if( window.innerWidth<600 && window.innerWidth>280){
       .to(torusMaterial,{
           size:.003,
         },'simultaneously')
-      // .to('.holder-1',{
-      //   width:'50vw',
-      //
-      // },'simultaneously')
+
       .to('.holder-2',{
         width:'50vw',
 
       },'simultaneously')
-      // .to('.holder-3',{
-      //   width:'50vw',
-      // },'simultaneously')
-      // .to('.holder-1 h2',{
-      //   rotateZ:0,
-      //   opacity:1,
-      //   fontSize:'1.9rem',
-      //   top:'75%',
-      //   // y:50,
-      // },'simultaneously')
-      // .to('.holder-2 h2',{
-      //   rotateZ:0,
-      //   opacity:1,
-      //   fontSize:'1.9rem',
-      //   // y:50,
-      //   top:'25%',
-      // },'simultaneously')
-      // .to('.holder-3 h2',{
-      //   rotateZ:0,
-      //   opacity:1,
-      //   fontSize:'1.9rem',
-      //   // y:50,
-      //   top:'75%',
-      // },'simultaneously')
+
 
       .to(document.body,{
         overflowX:'hidden',
@@ -1253,43 +1202,12 @@ sectionOne
       duration:2,
       ease:'power1',
     })
-    // .to('.holder-1',{
-    //   width:'50vw',
-    //
-    // },'simultaneously')
+
     .to('.holder-2',{
       width:'50vw',
 
     },'simultaneously')
-    // .to('.holder-3',{
-    //   width:'50vw',
-    // },'simultaneously')
-    // .to('.holder-1 h2',{
-    //   rotateZ:0,
-    //   opacity:1,
-    //   fontSize:'1.9rem',
-    //   top:'75%',
-    //   // y:50,
-    // },'simultaneously')
-    // .to('.holder-2 h2',{
-    //   rotateZ:0,
-    //   opacity:1,
-    //   fontSize:'1.9rem',
-    //   // y:50,
-    //   top:'25%',
-    // },'simultaneously')
-    // .to('.holder-3 h2',{
-    //   rotateZ:0,
-    //   opacity:1,
-    //   fontSize:'1.9rem',
-    //   // y:50,
-    //   top:'75%',
-    // },'simultaneously')
 
-    // .to(document.body,{
-    //   overflowX:'hidden',
-    //   overflowY:'scroll'
-    // })
   }
   else if( window.innerWidth<1000 && window.innerWidth>600){
     // console.log('tab');
@@ -1324,38 +1242,12 @@ sectionOne
           duration:2,
           ease:'power1',
         })
-        // .to('.holder-1',{
-        //   width:'50vw',
-        //
-        // },'simultaneously')
+
         .to('.holder-2',{
           width:'50vw',
 
         },'simultaneously')
-        // .to('.holder-3',{
-        //   width:'50vw',
-        // },'simultaneously')
-        // .to('.holder-1 h2',{
-        //   rotateZ:0,
-        //   opacity:1,
-        //   fontSize:'1.9rem',
-        //   top:'75%',
-        //   // y:50,
-        // },'simultaneously')
-        // .to('.holder-2 h2',{
-        //   rotateZ:0,
-        //   opacity:1,
-        //   fontSize:'1.9rem',
-        //   // y:50,
-        //   top:'25%',
-        // },'simultaneously')
-        // .to('.holder-3 h2',{
-        //   rotateZ:0,
-        //   opacity:1,
-        //   fontSize:'1.9rem',
-        //   // y:50,
-        //   top:'75%',
-        // },'simultaneously')
+
 
         .to(document.body,{
           overflowX:'hidden',
@@ -1388,24 +1280,8 @@ sectionOne
       end:"bottom"
     }
   })
-  let points = document.querySelectorAll('.impact-cont li');
-  points.forEach((point)=>{
-    gsap.from(point,{
-      opacity:0,
-      xPercent:200,
-      duration:1,
-      stagger:.2,
-      scrub:.1,
-      ease:'none',
-      scrollTrigger:{
-        trigger:'.impact-cont',
-        toggleActions:"play reverse play reverse",
-        start:'-20% top',
-        end:'bottom'
-      }
-    })
-  })
-  gsap.from('.prods-holder',{
+
+  gsap.from('.founders-holder',{
     opacity:0,
     xPercent:-100,
     scrub:true,
@@ -1420,29 +1296,7 @@ sectionOne
     }
   })
 
-  //cards animation
-  // gsap.from(card,{
-  //   y:-100,
-  //   x:-100,
-  //   opacity:0,
-  //   duration:2,
-  //   stagger:0.4,
-  //   ease:'power1',
-  //   // markers:true,
-  //   scrollTrigger:{
-  //     trigger:'.cards-cont',
-  //     toggleActions:"play reset play none",
-  //
-  //     start:"top top",
-  //     end:"bottom",
-  //   }
-  //
-  // })
-  // card.forEach(car =>{
-  //   let hover= gsap.to(car,{scale:1.1,duration:.5,ease:'power1'});
-  //   car.addEventListener('mouseover',() => hover.play());
-  //   car.addEventListener('mouseleave',() => hover.reverse());
-  // });
+
   //sectionTwo timeline
   let sectionTwo = gsap.timeline({
     scrollTrigger:{
@@ -1491,11 +1345,7 @@ sectionOne
     z:-20.5,
   },"simultaneously")
 
-  .to(scene.background,{
-    r:0,
-    g:0,
-    b:0,
-  },'simultaneously')
+
   .from('#play',{
     xPercent:-800,
 
@@ -1520,25 +1370,7 @@ sectionOne
     y:0,
     z:.8,
   },"simultaneously")
-//   .add(function(){
-//     veedeeo.muted=true;
-//     veedeeo.play();
-//     play.classList.remove('active');
-// play.children[0].src='images/pause1.png';
-// play.style.background='rgba(255,0,0,1)';
-//   mute.children[0].src='images/mute1.png';
-//   mute.style.background='rgba(255,0,0,1)';
-//
-//     // setInterval(function(){veedeeo.pause()},100);
-//
-//
-//
-//   },'simultaneously')
 
-  // .to('.holder-1',{
-  //   width:'50vw',
-  //
-  // },'simultaneously')
   .to('.holder-2',{
     width:'50vw',
 
@@ -1546,35 +1378,7 @@ sectionOne
   .add(function(){
     veedeeo.pause();
   })
-  // .to('.holder-3',{
-  //   width:'50vw',
-  // },'simultaneously')
-  // .to('.holder-1 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   top:'75%',
-  //   // y:50,
-  // },'simultaneously')
-  // .to('.holder-2 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   // y:50,
-  //   top:'25%',
-  // },'simultaneously')
-  // .to('.holder-3 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   // y:50,
-  //   top:'75%',
-  // },'simultaneously')
-  // .to(document.body,{
-  //   overflowX:'hidden',
-  //   overflowY:'scroll'
-  // })
-  // console.log(scene);
+
 
 let sectionTwoHalf =gsap.timeline({
   scrollTrigger:{
@@ -1614,48 +1418,17 @@ if(window.innerWidth>600 && window.innerWidth<1000 && window.matchMedia("(pointe
     opacity:0,
     xPercent:1000
   },'simultaneously')
-  // .to('.holder-1',{
-  //   width:'70vw',
-  //   height:'20vh'
-  //
-  //
-  // },'simultaneously')
+
   .to('.holder-2',{
     width:'90vw',
     height:'90vh'
 
   },'simultaneously')
-  // .to('.holder-1 .over',{
-  //   background:'none'
-  // },'simultaneously')
-  // .to('.holder-3',{
-  //   width:'70vw',
-  //   height:'20vh'
-  // },'simultaneously')
-  // .to('.holder-1 h2',{
-  //   rotateZ:'0deg',
-  //   opacity:1,
-  //   fontSize:'1rem',
-  //   top:'50%',
-  //   // y:50,
-  // },'simultaneously')
-  // .to('.holder-2 h2',{
-  //   rotateZ:'0deg',
-  //   opacity:0,
-  //   fontSize:'1rem',
-  //   // y:50,
-  //   top:'50%',
-  // },'simultaneously')
+
   .to('.holder-2 .over',{
     display:'none',
   })
-  // .to('.holder-3 h2',{
-  //   rotateZ:'0deg',
-  //   opacity:1,
-  //   fontSize:'1rem',
-  //   // y:50,
-  //   top:'50%',
-  // },'simultaneously')
+
   .add(function(){
     veedeeo.pause();
   })
@@ -1692,11 +1465,7 @@ else if(window.innerWidth>1000){
     opacity:0,
     xPercent:1000
   },'simultaneously')
-  // .to('.holder-1',{
-  //   width:'30vw',
-  //
-  //
-  // },'simultaneously')
+
   .to('.holder-2',{
     width:'90vw',
     height:'90vh',
@@ -1719,38 +1488,7 @@ play.style.background= 'rgba(150,150,150,.4)';
 
 
   },'simultaneously')
-  // .to('.holder-1 .over',{
-  //   background:'none'
-  // },'simultaneously')
-  // .to('.holder-3',{
-  //   width:'30vw',
-  //   // height:'60vh'
-  // },'simultaneously')
-  // .to('.holder-1 h2',{
-  //   rotateZ:'90deg',
-  //   opacity:1,
-  //   fontSize:'1.4rem',
-  //   top:'45%',
-  //   // y:50,
-  // },'simultaneously')
-  // .to('.holder-2 h2',{
-  //   // rotateZ:'90deg',
-  //   opacity:0,
-  //   fontSize:'1.4rem',
-  //   // y:50,
-  //   top:'45%',
-  // },'simultaneously')
-  // .to('.holder-3 h2',{
-  //   rotateZ:'90deg',
-  //   opacity:1,
-  //   fontSize:'1.4rem',
-  //   // y:50,
-  //   top:'45%',
-  // },'simultaneously')
-  // .to(document.body,{
-  //   overflowX:'hidden',
-  //   overflowY:'scroll'
-  // })
+
 }
 else if(window.innerWidth>280 && window.innerWidth<600 && window.matchMedia("(pointer: coarse)")){
   // console.log('yes');
@@ -1780,31 +1518,13 @@ else if(window.innerWidth>280 && window.innerWidth<600 && window.matchMedia("(po
     opacity:0,
     xPercent:1000
   },'simultaneously')
-  // .to('.holder-1',{
-  //   width:'90vw',
-  //   height:'90vh'
-  //
-  //
-  // },'simultaneously')
+
   .to('.holder-2',{
     width:'90vw',
     height:'90vh'
 
   },'simultaneously')
-  // .to('.holder-1 .over',{
-  //   background:'none'
-  // },'simultaneously')
-  // .to('.holder-3',{
-  //   width:'75vw',
-  //   height:'20vh'
-  // },'simultaneously')
-  // .to('.holder-1 h2',{
-  //   rotateZ:'0deg',
-  //   opacity:1,
-  //   fontSize:'1rem',
-  //   top:'50%',
-  //   // y:50,
-  // },'simultaneously')
+
   .to('.holder-2 h2',{
     rotateZ:'0deg',
     opacity:0,
@@ -1812,13 +1532,7 @@ else if(window.innerWidth>280 && window.innerWidth<600 && window.matchMedia("(po
     // y:50,
     top:'50%',
   },'simultaneously')
-  // .to('.holder-3 h2',{
-  //   rotateZ:'0deg',
-  //   opacity:1,
-  //   fontSize:'1rem',
-  //   // y:50,
-  //   top:'50%',
-  // },'simultaneously')
+
   .add(function(){
     veedeeo.muted=true;
     veedeeo.pause();
@@ -1837,14 +1551,6 @@ play.style.background= 'rgba(150,150,150,.4)';
   })
 }
 
-// sectionTwoHalf
-// .from('.products-holder',{
-//   xPercent:-100,
-//   delay:.8,
-//   duration:1,
-//
-//
-// })
 let sectionThree = gsap.timeline({
   scrollTrigger:{
     trigger:'.prods',
@@ -1877,73 +1583,7 @@ sectionThree
   y:7,
   z:0
 },'simultaneously')
-// .to(camera,{
-//   fov:50,
-// })
-// .from('.impact-cont',{
-//   xPercent:150,
-//   delay:2,
-//   duration:2,
-//   ease:'none',
-// })
-// .to(impactVideoCube.position,{
-//   x:-10,
-//   y:-15,
-//   z:-5,
-//   duration:4,
-// },'simultaneously')
-// .to(impactVideoCube.rotation,{
-//   x:1,
-//   y:2.3,
-//   z:0
-// },'simultaneously')
-// .to(impactVideoMat,{
-//   opacity:1,
-//
-// },'simultaneously')
-// .to(impactVideoMat,{
-//   opacity:0,
-//
-// },'simultaneously')
-// .to('.holder-1',{
-//   width:'90vw',
-//
-// },'simultaneously')
-// .to('.holder-2',{
-//   width:'8vw',
-//
-// },'simultaneously')
-// .to('.holder-3',{
-//   width:'8vw',
-//
-// },'simultaneously')
-// .to('.holder-1 h2',{
-//   rotateZ:0,
-//   opacity:1,
-//   fontSize:'1.9rem',
-//   top:'75%',
-//   // y:50,
-// },'simultaneously')
-// .to('.holder-2 h2',{
-//   rotateZ:0,
-//   opacity:1,
-//   fontSize:'1.9rem',
-//   // y:50,
-//   top:'25%',
-// },'simultaneously')
-// .to('.holder-3 h2',{
-//   rotateZ:0,
-//   opacity:1,
-//   fontSize:'1.9rem',
-//   // y:50,
-//   top:'75%',
-// },'simultaneously')
-// .to(mail[0].material,{
-//   opacity:0,
-// },'simultaneously')
-// .to(mail[1].material,{
-//   opacity:0,
-// },'simultaneously')
+
 .add(function(){
   veedeeo.pause();
 })
@@ -1971,494 +1611,13 @@ else if(window.innerWidth>1000){
   .add(function(){
     veedeeo.pause();
   })
-  // .to(camera,{
-  //   fov:50,
-  // })
-  // .from('.impact-cont',{
-  //   xPercent:150,
-  //   delay:2,
-  //   duration:2,
-  //   ease:'none',
-  // })
-  // .to(impactVideoCube.position,{
-  //   x:-10,
-  //   y:-15,
-  //   z:-5,
-  //   duration:4,
-  // },'simultaneously')
-  // .to(impactVideoCube.rotation,{
-  //   x:1,
-  //   y:2.3,
-  //   z:0
-  // },'simultaneously')
-  // .to(impactVideoMat,{
-  //   opacity:1,
-  //
-  // },'simultaneously')
-  // .to(impactVideoMat,{
-  //   opacity:0,
-  //
-  // },'simultaneously')
-  // .to('.holder-1',{
-  //   width:'90vw',
-  //
-  // },'simultaneously')
-  // .to('.holder-2',{
-  //   width:'8vw',
-  //
-  // },'simultaneously')
-  // .to('.holder-3',{
-  //   width:'8vw',
-  //
-  // },'simultaneously')
-  // .to('.holder-1 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   top:'75%',
-  //   // y:50,
-  // },'simultaneously')
-  // .to('.holder-2 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   // y:50,
-  //   top:'25%',
-  // },'simultaneously')
-  // .to('.holder-3 h2',{
-  //   rotateZ:0,
-  //   opacity:1,
-  //   fontSize:'1.9rem',
-  //   // y:50,
-  //   top:'75%',
-  // },'simultaneously')
-  // .to(mail[0].material,{
-  //   opacity:0,
-  // },'simultaneously')
-  // .to(mail[1].material,{
-  //   opacity:0,
-  // },'simultaneously')
-  // .to(document.body,{
-  //   overflowX:'hidden',
-  //   overflowY:'scroll'
-  // })
+
 }
 const holder1= document.querySelector('.holder-1');
 const holder2= document.querySelector('.holder-2');
 const holder3= document.querySelector('.holder-3');
 const prodHolder= document.querySelector('.prods-holder');
-prodHolder.onmouseleave = function(){
-  if(window.innerWidth>1000){
 
-
-  // gsap.to(holder1,{
-  //   width:'30vw'
-  // })
-  // gsap.to(holder2,{
-  //   width:'35vw'
-  // })
-  // gsap.to(holder3,{
-  //   width:'30vw'
-  // })
-  // gsap.to('.holder-1 h2',{
-  //   rotateZ:'90deg',
-  //   opacity:1,
-  //   fontSize:'1.4rem',
-  //   top:'45%',
-  //   // y:50,
-  // },'simultaneously')
-  gsap.to('.holder-2 h2',{
-    // rotateZ:'90deg',
-    opacity:1,
-    fontSize:'1.4rem',
-    // y:50,
-    top:'45%',
-  },'simultaneously')
-  // gsap.to('.holder-3 h2',{
-  //   rotateZ:'90deg',
-  //   opacity:1,
-  //   fontSize:'1.4rem',
-  //   // y:50,
-  //   top:'45%',
-  // },'simultaneously')
-}
-else if(window.innerWidth<600 && window.innerWidth>280){
-
-    // gsap.to(holder1,{
-    //   width:'90vw',
-    //   height:'30vh'
-    // })
-    gsap.to(holder2,{
-      width:'90vw',
-      height:'90vh'
-    })
-    // gsap.to(holder3,{
-    //   width:'90vw',
-    //   height:'30vh'
-    // })
-    // gsap.to('.holder-1 h2',{
-    //   rotateZ:'0deg',
-    //   opacity:1,
-    //   fontSize:'1rem',
-    //   top:'45%',
-    //   // y:50,
-    // },'simultaneously')
-    gsap.to('.holder-2 h2',{
-      rotateZ:'0deg',
-      opacity:1,
-      fontSize:'1rem',
-      // y:50,
-      top:'45%',
-    },'simultaneously')
-
-}
-}
-// holder3.addEventListener('mouseleave',function(){
-//   gsap.to('.holder-3 .over',{
-//     background:'rgba(0,0,0,.9)'
-//   })
-//   gsap.to('.holder-3 .writeup',{
-//     opacity:0
-//   })
-//   holder3.querySelector('video').pause();
-// })
-// holder3.addEventListener('click',function(){
-//   holder3.querySelector('video').play();
-//   if(window.innerWidth>600 && window.innerWidth<1000){
-//     gsap.to('.holder-3 .over',{
-//       background:'rgba(0,0,0,0)'
-//     })
-//     gsap.to('.holder-3 .writeup',{
-//       opacity:1,
-//     })
-//   gsap.to(holder3,{
-//     width:'90vw',
-//     height:'90vh'
-//   })
-//   gsap.to(holder1,{
-//     width:'90vw',
-//     height:'8vh'
-//   })
-//   gsap.to(holder2,{
-//     width:'90vw',
-//     height:'8vh'
-//   })
-//   gsap.to(holder2.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1rem',
-//     rotateZ:'0deg',
-//     width:300,
-//     // y:'500%',
-//     top:'40%',
-//
-//   })
-//   gsap.to(holder1.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1rem',
-//     rotateZ:'0deg',
-//     width:300,
-//     // y:'500%',
-//     top:'40%',
-//
-//   })
-//
-//   gsap.to(holder3.querySelector('h2'),{
-//     rotateZ:0,
-//     opacity:0,
-//     fontSize:'1rem',
-//   })
-//
-//   gsap.to(holder1.querySelector('img'),{
-//     opacity:1,
-//   })
-//   gsap.to(holder2.querySelector('img'),{
-//     opacity:0,
-//   })
-//   }
-//    else if(window.innerWidth>1000){
-//     gsap.to('.holder-3 .over',{
-//       background:'rgba(0,0,0,0)'
-//     })
-//     // gsap.to('.holder-3 .writeup',{
-//     //   opacity:1
-//     // })
-//     gsap.to(holder3,{
-//     width:'90vw',
-//     // height:'90vh'
-//
-//     })
-//     gsap.to(holder2,{
-//     width:'8vw',
-//     // height:'60vh'
-//     })
-//     gsap.to(holder1,{
-//     width:'8vw',
-//     // height:'60vh'
-//     })
-//     gsap.to(holder2.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1.4rem',
-//     rotateZ:'90deg',
-//     width:300,
-//     // y:'500%',
-//     top:'50%',
-//
-//     })
-//     gsap.to(holder1.querySelector('h2'),{
-//     fontSize:'1.4rem',
-//     opacity:1,
-//     fontSize:'1.4rem',
-//     rotateZ:'90deg',
-//     width:300,
-//     // y:'-500%',
-//     top:'50%'
-//
-//     })
-//     gsap.to(holder3.querySelector('h2'),{
-//     rotateZ:0,
-//     opacity:0,
-//     fontSize:'1.9rem',
-//     })
-//     gsap.to(holder1.querySelector('img'),{
-//     opacity:1,
-//     })
-//     gsap.to(holder2.querySelector('img'),{
-//     opacity:0,
-//     })
-//   }
-//   else if(window.innerWidth<600 && window.innerWidth>280){
-//     gsap.to('.holder-3 .over',{
-//       background:'rgba(0,0,0,0)'
-//     })
-//     // gsap.to('.holder-3 .writeup',{
-//     //   opacity:1,
-//     // })
-//   gsap.to(holder3,{
-//     width:'90vw',
-//     height:'90vh'
-//   })
-//   gsap.to(holder1,{
-//     width:'90vw',
-//     height:'8vh'
-//   })
-//   gsap.to(holder2,{
-//     width:'90vw',
-//     height:'8vh'
-//   })
-//   gsap.to(holder1.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1rem',
-//     rotateZ:'0deg',
-//     width:300,
-//     // y:'500%',
-//     top:'40%',
-//
-//   })
-//   gsap.to(holder2.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1rem',
-//     rotateZ:'0deg',
-//     width:300,
-//     // y:'500%',
-//     top:'40%',
-//
-//   })
-//
-//   gsap.to(holder3.querySelector('h2'),{
-//     rotateZ:0,
-//     opacity:0,
-//     fontSize:'1rem',
-//   })
-//
-//   gsap.to(holder1.querySelector('img'),{
-//     opacity:1,
-//   })
-//   gsap.to(holder2.querySelector('img'),{
-//     opacity:0,
-//   })
-//   }
-//
-// })
-// holder1.addEventListener('mouseleave',function(){
-//   holder1.querySelector('video').pause();
-//
-//   gsap.to('.holder-1 .over',{
-//     background:'rgba(255,255,255,.6)'
-//   })
-//   // gsap.to('.holder-1 .writeup',{
-//   //   opacity:0
-//   // })
-// })
-// holder1.addEventListener('click',function(){
-//   holder1.querySelector('video').play();
-//   if(window.innerWidth>600 && window.innerWidth<1000){
-//     gsap.to('.holder-1 .over',{
-//       background:'rgba(0,0,0,0)'
-//     })
-//     gsap.to('.holder-1 .writeup',{
-//       opacity:1,
-//     })
-//   gsap.to(holder1,{
-//     width:'90vw',
-//     height:'90vh'
-//   })
-//   gsap.to(holder2,{
-//     width:'90vw',
-//     height:'8vh'
-//   })
-//   gsap.to(holder3,{
-//     width:'90vw',
-//     height:'8vh'
-//   })
-//   gsap.to(holder2.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1rem',
-//     rotateZ:'0deg',
-//     width:300,
-//     // y:'500%',
-//     top:'40%',
-//
-//   })
-//   gsap.to(holder3.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1rem',
-//     rotateZ:'0deg',
-//     width:300,
-//     // y:'500%',
-//     top:'40%',
-//
-//   })
-//
-//   gsap.to(holder1.querySelector('h2'),{
-//     rotateZ:0,
-//     opacity:0,
-//     fontSize:'1rem',
-//   })
-//
-//   gsap.to(holder1.querySelector('img'),{
-//     opacity:1,
-//   })
-//   gsap.to(holder2.querySelector('img'),{
-//     opacity:0,
-//   })
-//   }
-//   else if(window.innerWidth>1000){
-//     gsap.to('.holder-1 .over',{
-//       background:'rgba(0,0,0,0)'
-//     })
-//     gsap.to('.holder-1 .writeup',{
-//       opacity:1,
-//
-//
-//     })
-//   gsap.to(holder1,{
-//     width:'90vw',
-//     height:'90vh'
-//   })
-//   gsap.to(holder2,{
-//     width:'8vw',
-//     // height:'60vh'
-//   })
-//   gsap.to(holder3,{
-//     width:'8vw',
-//     // height:'60vh'
-//   })
-//   gsap.to(holder2.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1.4rem',
-//     rotateZ:'90deg',
-//     width:300,
-//     // y:'500%',
-//     top:'50%',
-//
-//   })
-//   gsap.to(holder3.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1.4rem',
-//     rotateZ:'90deg',
-//     width:300,
-//     // y:'500%',
-//     top:'50%',
-//
-//   })
-//
-//   gsap.to(holder1.querySelector('h2'),{
-//     rotateZ:0,
-//     opacity:0,
-//     fontSize:'1.9rem',
-//   })
-//
-//   gsap.to(holder1.querySelector('img'),{
-//     opacity:1,
-//   })
-//   gsap.to(holder2.querySelector('img'),{
-//     opacity:0,
-//   })
-//   }
-//   else if(window.innerWidth<600 && window.innerWidth>280){
-//     gsap.to('.holder-1 .over',{
-//       background:'rgba(0,0,0,0)'
-//     })
-//     gsap.to('.holder-1 .writeup',{
-//       opacity:1,
-//     })
-//   gsap.to(holder1,{
-//     width:'90vw',
-//     height:'90vh'
-//   })
-//   gsap.to(holder2,{
-//     width:'90vw',
-//     height:'8vh'
-//   })
-//   gsap.to(holder3,{
-//     width:'90vw',
-//     height:'8vh'
-//   })
-//   gsap.to(holder2.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1rem',
-//     rotateZ:'0deg',
-//     width:300,
-//     // y:'500%',
-//     top:'40%',
-//
-//   })
-//   gsap.to(holder3.querySelector('h2'),{
-//     opacity:1,
-//     fontSize:'1rem',
-//     rotateZ:'0deg',
-//     width:300,
-//     // y:'500%',
-//     top:'40%',
-//
-//   })
-//
-//   gsap.to(holder1.querySelector('h2'),{
-//     rotateZ:0,
-//     opacity:0,
-//     fontSize:'1rem',
-//   })
-//
-//   gsap.to(holder1.querySelector('img'),{
-//     opacity:1,
-//   })
-//   gsap.to(holder2.querySelector('img'),{
-//     opacity:0,
-//   })
-//   }
-//
-// })
-holder2.addEventListener('mouseleave',function(){
-
-  // holder2.querySelector('video').pause();
-  // gsap.to('.holder-2 .over',{
-  //   background:'rgba(0,0,0,.7)',
-  // })
-
-  // gsap.to('.holder-2 .writeup',{
-  //   opacity:0
-  // })
-})
 
 holder2.addEventListener('click',function(){
   holder2.querySelector('video').play();
@@ -2467,39 +1626,12 @@ holder2.addEventListener('click',function(){
     gsap.to('.holder-2 .over',{
       background:'rgba(0,0,0,0)'
     })
-    // gsap.to('.holder-2 .writeup',{
-    //   opacity:1,
-    // })
+
   gsap.to(holder2,{
     width:'90vw',
     height:'90vh'
   })
-  // gsap.to(holder1,{
-  //   width:'90vw',
-  //   height:'8vh'
-  // })
-  // gsap.to(holder3,{
-  //   width:'90vw',
-  //   height:'8vh'
-  // })
-  // gsap.to(holder1.querySelector('h2'),{
-  //   opacity:1,
-  //   fontSize:'1rem',
-  //   rotateZ:'0deg',
-  //   width:300,
-  //   // y:'500%',
-  //   top:'40%',
-  //
-  // })
-  // gsap.to(holder3.querySelector('h2'),{
-  //   opacity:1,
-  //   fontSize:'1rem',
-  //   rotateZ:'0deg',
-  //   width:300,
-  //   // y:'500%',
-  //   top:'40%',
-  //
-  // })
+
 
   gsap.to(holder2.querySelector('h2'),{
     rotateZ:0,
@@ -2507,12 +1639,7 @@ holder2.addEventListener('click',function(){
     fontSize:'1rem',
   })
 
-  // gsap.to(holder1.querySelector('img'),{
-  //   opacity:1,
-  // })
-  // gsap.to(holder2.querySelector('img'),{
-  //   opacity:0,
-  // })
+
   }
   else if(window.innerWidth>1000){
 
@@ -2520,51 +1647,12 @@ holder2.addEventListener('click',function(){
   gsap.to('.holder-2 .over',{
     background:'rgba(0,0,0,0)'
   })
-  // gsap.to('.holder-2 video',{
-  //   objectPosition:'center'
-  // })
-  // gsap.to('.holder-2 .writeup',{
-  //   opacity:1
-  // })
+
 gsap.to(holder2,{
   width:'94vw',
   height:'100vh'
 })
-// gsap.to(holder1,{
-//   width:'8vw',
-//
-// })
-// gsap.to(holder3,{
-//   width:'8vw',
-//
-// })
-// gsap.to(holder1.querySelector('h2'),{
-//   fontSize:'1.4rem',
-//   opacity:1,
-//   fontSize:'1.4rem',
-//   rotateZ:'90deg',
-//   width:300,
-//
-//   top:'50%',
-//
-// })
-// gsap.to(holder3.querySelector('h2'),{
-//   fontSize:'1.4rem',
-//   opacity:1,
-//   fontSize:'1.4rem',
-//   rotateZ:'90deg',
-//   width:300,
-//
-//   top:'50%',
-//
-// })
 
-// gsap.to(holder1.querySelector('img'),{
-//   opacity:0,
-// })
-// gsap.to(holder2.querySelector('img'),{
-//   opacity:1,
-// })
 gsap.to(holder2.querySelector('h2'),{
   rotateZ:0,
   opacity:0,
@@ -2575,119 +1663,22 @@ else if(window.innerWidth<600 && window.innerWidth>280){
   gsap.to('.holder-2 .over',{
     background:'rgba(0,0,0,0)'
   })
-  // gsap.to('.holder-2 .writeup',{
-  //   opacity:1,
-  // })
+
 gsap.to(holder2,{
   width:'100vw',
   height:'100vh'
 })
-// gsap.to(holder1,{
-//   width:'90vw',
-//   height:'8vh'
-// })
-// gsap.to(holder3,{
-//   width:'90vw',
-//   height:'8vh'
-// })
-// gsap.to(holder1.querySelector('h2'),{
-//   opacity:1,
-//   fontSize:'1rem',
-//   rotateZ:'0deg',
-//   width:300,
-//   top:'40%',
-//
-// })
-// gsap.to(holder3.querySelector('h2'),{
-//   opacity:1,
-//   fontSize:'1rem',
-//   rotateZ:'0deg',
-//   width:300,
-//   top:'40%',
-//
-// })
+
 
 gsap.to(holder2.querySelector('h2'),{
   rotateZ:0,
   opacity:0,
   fontSize:'1rem',
 })
-// gsap.to(holder2.querySelector('video'),{
-//   objectPosition:'0px 0px !important',
-// })
 
-// gsap.to(holder1.querySelector('img'),{
-//   opacity:1,
-// })
-// gsap.to(holder2.querySelector('img'),{
-//   opacity:0,
-// })
 }
 })
-//impact cube animations
 
-// const good = document.getElementById('good');
-// const free = document.getElementById('free');
-// const zero = document.getElementById('zero');
-// const save = document.getElementById('save');
-// const control = document.getElementById('control');
-// const contain = document.getElementById('contain');
-
-// good.addEventListener('mouseover',function(){
-//   gsap.to(impactVideoCube.rotation,{
-//     x:-0.1,
-//     y:3.,
-//     z:-0.24,
-//     duration:2,
-//     ease:'power1.inOut',
-//   })
-// })
-//
-// save.addEventListener('mouseover',function(){
-//   gsap.to(impactVideoCube.rotation,{
-//     x:5.1,
-//     y:1.3,
-//     z:1.1,
-//     duration:2,
-//     ease:'power1.inOut',
-//   })
-// })
-// zero.addEventListener('mouseover', function(){
-//   gsap.to(impactVideoCube.rotation,{
-//     x:1.5,
-//     y:3.4,
-//     z:4.5,
-//     duration:2,
-//     ease:'power2.inOut',
-//   })
-// })
-// free.addEventListener('mouseover',function(){
-//   gsap.to(impactVideoCube.rotation,{
-//     x:1.5,
-//     y:.3,
-//     z:-1.4,
-//     duration:2,
-//     ease:'power2.inOut',
-//   })
-// })
-// control.addEventListener('mouseover',function(){
-//   gsap.to(impactVideoCube.rotation,{
-//     x:-0.8,
-//     y:-1.85,
-//     z:-0.7,
-//     duration:2,
-//     ease:'power2.inOut',
-//   })
-// })
-// contain.addEventListener('mouseover',function(){
-//   gsap.to(impactVideoCube.rotation,{
-//     x:0,
-//     y:-0.2,
-//     z:0.3,
-//     duration:2,
-//     ease:'power1.inOut',
-//   })
-// })
 //contact details animations
 const telephone = document.querySelector('.phone');
 const marker = document.querySelectorAll('.address');
@@ -2737,26 +1728,7 @@ inp.onkeydown = function(){
     })
   }
 }
-// function inpAnim2(e){
-// //   if(inp.value.length>0){
-// //     gsap.to(dish.rotation,{
-// //       y:'+=0.5',
-// //       duration:.5,
-// //       ease:'power1'
-// //     })
-// //
-// //
-// // }
-// // else if(inp.value.length===0){
-// //   gsap.to(dish.rotation,{
-// //     y:0,
-// //     duration:.5,
-// //     ease:'power1'
-// //   })
-// // }
-//
-//
-// }
+
 function inpAnim(){
   let animation = gsap.timeline();
   if(window.innerWidth<600 && window.innerWidth>280){
@@ -2821,17 +1793,7 @@ function emailAnim(){
     z:3,
   })
   animation
-  // .to(mail[0].position,{
-  //   x:-.5,
-  //   y:2.2,
-  //   z:-15.65,
-  //   duration:1,
-  //   ease:'power1'
-  // },'simultaneously')
-  // .to(mail[0].material,{
-  //   opacity:0,
-  //   ease:'power1'
-  // },'simultaneously')
+
   .to(mail[1].position,{
     x:-.45,
     y:2.35,
@@ -2943,11 +1905,7 @@ telephone.addEventListener('mouseover',function(){
   },400)
 });
 telephone.addEventListener('mouseleave',clear);
-// marker.forEach(mark).addEventListener('mouseover',function(){
-//   timeoutId=window.setTimeout(function(){
-//     addressAnim();
-//   },400)
-// });
+
 marker.forEach((mark) => {
   mark.onmouseover= function(){
     timeoutId=window.setTimeout(function(){
@@ -2958,11 +1916,7 @@ marker.forEach((mark) => {
 marker.forEach((mark) => {
   mark.addEventListener('mouseleave',clear)
   });
-// marker.addEventListener('mouseleave',clear);
 
-// marker.forEach(mark => {
-//   mark.addEventListener('mouseover',addressAnim);
-// })
 email.addEventListener('mouseover',function(){
   timeoutId=window.setTimeout(function(){
     emailAnim();
@@ -2972,49 +1926,3 @@ email.addEventListener('mouseleave',clear)
 function clear(){
   window.clearTimeout(timeoutId);
 }
-// console.log(camera);
-// gsap.to(card, {
-//
-//   opacity: 0,
-//   duration: 3,
-//   ease: "power2",
-//   stagger: 0.2,
-//   markers:true,
-//   scrollTrigger: {
-//     trigger: cards,
-//     containerAnimation: sectionOne,
-//     start: "bottom 100% ",
-//     toggleActions: "play none none none",
-//     end: "bottom 100%",
-//     // markers: true
-//   }
-// });
-
-// gsap.to(camera.position,{
-//   scrollTrigger:{
-//     trigger:".veed",
-//     start:"top center",
-//     // snap:true,
-//     end:".veed",
-//     scrub:3,
-//     markers:true
-//   },
-//
-//   z:-10,
-//   duration:4
-// })
-
-// gsap.to(camera.rotation,{
-//   scrollTrigger:{
-//     trigger:".veed",
-//     start:"top center",
-//     // snap:true,
-//     end:".veed",
-//     scrub:3,
-//
-//   },
-//   x:1.2,
-//   y:2,
-//
-//   duration:4
-// })
