@@ -24,44 +24,12 @@ const zz = textureLoader.load('./textures/hexagon-removebg.png');
 const cubeTexture = textureLoader.load('./textures/cube map.png');
 const def = textureLoader.load('./textures/biodefence-nav-logo-red.png');
 const veedeeo= document.getElementById('video-texture');
-// const impactVid = document.getElementById('impactVideo');
-// const impactVid1 = document.getElementById('impactVideo1');
-// const impactVid2 = document.getElementById('impactVideo2');
-// const impactVid3 = document.getElementById('impactVideo3');
-// const impactVid4 = document.getElementById('impactVideo4');
-// const impactVid5 = document.getElementById('impactVideo5');
-// const mainBG= document.getElementById('mainBG');
-// mainBG.play();
-// mainBG.playbackRate=.4;
-// impactVid.play();
-// impactVid1.play();
-// impactVid2.play();
-// impactVid3.play();
-// impactVid4.play();
-// impactVid5.play();
+
 
 veedeeo.currentTime =.1;
-// impactVid.currentTime=.1;
-// impactVid2.currentTime=.1;
-// impactVid3.currentTime=.1;
-// impactVid4.currentTime=.1;
-// impactVid5.currentTime=.1;
+
 let videoTexture = new THREE.VideoTexture(veedeeo);
-// let videoTexture1 = new THREE.VideoTexture(impactVid1);
-// let videoTexture2 = new THREE.VideoTexture(impactVid2);
-// let videoTexture3 = new THREE.VideoTexture(impactVid3);
-// let videoTexture4 = new THREE.VideoTexture(impactVid4);
-// let videoTexture5 = new THREE.VideoTexture(impactVid5);
-// let impactVideoTexture= new THREE.VideoTexture(impactVid);
-// let mainBack= new THREE.VideoTexture(mainBG);
-// mainBG.minFilter= THREE.LinearFilter;
-// mainBG.magFilter= THREE.LinearFilter;
-// videoTexture.minFilter= THREE.LinearFilter;
-// videoTexture.magFilter= THREE.LinearFilter;
-// videoTexture.minFilter= THREE.LinearFilter;
-// videoTexture.magFilter= THREE.LinearFilter;
-// impactVideoTexture.minFilter= THREE.LinearFilter;
-// impactVideoTexture.magFilter= THREE.LinearFilter;
+
 const mute = document.getElementById('mute');
 const play = document.getElementById('play');
 // play.classList.add('active');
@@ -157,7 +125,7 @@ renderer.shadowMap.type=THREE.PCFShadowMap;
 //clipping planes
 const localPlane = new THREE.Plane( new THREE.Vector3( 0,0, .1 ),-1.65);
 const presPlane = new THREE.Plane( new THREE.Vector3( 0,0, .1 ),-1.65);
-const localPlane2 = new THREE.Plane(new THREE.Vector3(1,3.4,0),-.14);
+const localPlane2 = new THREE.Plane(new THREE.Vector3(1,2,0),-.14);
 const localPlane3 = new THREE.Plane(new THREE.Vector3(0.16,-.71,0),-.9);
 
 //particles
@@ -397,7 +365,13 @@ let coming;
     }
 
     console.log(coming);
-    coming.children[0].material = new THREE.MeshBasicMaterial({color:0x202020});
+    coming.children[0].material = new THREE.MeshBasicMaterial({color:0x202020,transparent:true,
+    opacity:0});
+    gsap.to(coming.children[0].material,{
+      opacity:1,
+      duration:1,
+      delay:.3,
+    })
 
   })
 
@@ -734,7 +708,7 @@ gLoader.load('./3d/new assets/imshield.glb',function(gltf){
   bio = gltf.scene.children[0];
   bio.position.x=-.4;
   bio.position.y=-11;
-  bio.position.z=1;
+  bio.position.z=-4;
   gltf.scene.fog = new THREE.FogExp2(0xababab,.02);
   if(window.innerWidth<600){
     scene.remove(gltf.scene);
@@ -766,7 +740,20 @@ bio.userData.name='logo';
 
 
 
-  bio.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30})
+  bio.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30,transparent:true,opacity:0});
+
+  gsap.to(bio.material,{
+    opacity:1,
+    duration:1,
+    delay:1,
+    ease:'none'
+  })
+  gsap.to(bio.position,{
+    z:1,
+    duration:1,
+    delay:1,
+    ease:'power2.Out'
+  })
 
 
 
@@ -822,16 +809,15 @@ gLoader.load('./3d/new assets/new text.glb',function(gltf){
   tex.material= new THREE.MeshBasicMaterial({
     // color:0xff0000,
     color:0x202020,
-    // clippingPlanes:[localPlane],
+    clippingPlanes:[localPlane2],
     // clipShadows:true
   })
+  gui.add(localPlane2.normal,'x',-3,3).name('lp n x');
+  gui.add(localPlane2.normal,'y',-3,3).name('lp n y');
+  gui.add(localPlane2.normal,'z',-3,3).name('lp n z');
+
 // console.log(groupTwo);
 
-  function texAnim(){
-    requestAnimationFrame(texAnim)
-    tex.rotation.y+=0.002;
-  }
-// texAnim();
 //   gui.add(tex.rotation,'x',-5,5).name('text rotation x');
 // gui.add(tex.rotation,'y',-5,5).name('text rotation y');
 // gui.add(tex.position,'y',-5,5).name('text position y');
@@ -841,6 +827,14 @@ gLoader.load('./3d/new assets/new text.glb',function(gltf){
 // gui.add(tex.position,'x',-1,1).name('text position x');
 // gui.add(tex.rotation,'z',-1,1).name('text rotation z');
 
+})
+window.addEventListener('load',function(){
+  gsap.to(localPlane2.normal,{
+    y:-2,
+    duration:1.5,
+    delay:2,
+    ease:'power1.Out'
+  })
 })
 groupTwo.add(tex,torus,bio);
 //lights

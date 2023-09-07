@@ -141,7 +141,7 @@ const sizes = {
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0xffecec ,.004);
 //camera
-const camera= new THREE.PerspectiveCamera(75,sizes.width/sizes.height,.1,1000);
+const camera= new THREE.PerspectiveCamera(75,sizes.width/sizes.height,.1,500);
 //renderer
 const renderer = new THREE.WebGLRenderer({antialias:true,canvas:canvas});
 renderer.localClippingEnabled=true;
@@ -157,7 +157,7 @@ renderer.shadowMap.type=THREE.PCFShadowMap;
 //clipping planes
 const localPlane = new THREE.Plane( new THREE.Vector3( 0,0, .1 ),-1.65);
 const presPlane = new THREE.Plane( new THREE.Vector3( 0,0, .1 ),-1.65);
-const localPlane2 = new THREE.Plane(new THREE.Vector3(1,3.4,0),-.14);
+const localPlane2 = new THREE.Plane(new THREE.Vector3(0.5,3,0),-.14);
 const localPlane3 = new THREE.Plane(new THREE.Vector3(0.16,-.71,0),-.9);
 
 //particles
@@ -698,7 +698,7 @@ gLoader.load('./3d/bioshield text present.glb',function(gltf){
   scene.add(gltf.scene);
 
   bioPres= gltf.scene.children[0];
-  bioPres.material = new THREE.MeshBasicMaterial({color:0xFA1E0E,color:0x202020,clippingPlanes:[presPlane]});
+  bioPres.material = new THREE.MeshBasicMaterial({color:0xFA1E0E,color:0x202020,clippingPlanes:[presPlane],transparent:true,opacity:0});
   if(window.innerWidth>1000){
 gltf.scene.scale.set(.06,.06,.06);
 presPlane.normal.z=.12;
@@ -714,7 +714,12 @@ presPlane.normal.z=.12;
 
 bioPres.position.set(-34.2,-16,1);
 
-
+gsap.to(bioPres.material,{
+  opacity:1,
+  duration:1,
+  delay:1,
+  ease:'none'
+})
 // gui.add(bioPres.position,'x',-50,50).name('pres p x');
 // gui.add(bioPres.position,'y',-50,50).name('pres p y');
 // gui.add(bioPres.rotation,'x',-1,1).name('pres r x');
@@ -727,7 +732,7 @@ gLoader.load('./3d/bioshield text.glb',function(gltf){
   bio = gltf.scene.children[0];
   bio.position.x=-35;
   bio.position.y=-17;
-  bio.position.z=1;
+  bio.position.z=-5;
   gltf.scene.fog = new THREE.FogExp2(0xababab,.02);
   if(window.innerWidth<600){
   gltf.scene.scale.set(.02,.02,.02);
@@ -752,8 +757,20 @@ bio.userData.name='logo';
 
 
 
-  bio.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30})
+  bio.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30,opacity:0,transparent:true})
 
+gsap.to(bio.material,{
+  opacity:1,
+  duration:1,
+  delay:2,
+  ease:'none'
+})
+gsap.to(bio.position,{
+  z:1,
+  duration:1.5,
+  delay:2,
+  ease:'power1.Out'
+})
 
 
 
@@ -806,7 +823,7 @@ gLoader.load('./3d/to protect.glb',function(gltf){
   tex.material= new THREE.MeshBasicMaterial({
     // color:0xff0000,
     color:0x202020,
-    clippingPlanes:[localPlane],
+    clippingPlanes:[localPlane,localPlane2],
     // clipShadows:true
   })
 // console.log(groupTwo);
@@ -824,6 +841,20 @@ gLoader.load('./3d/to protect.glb',function(gltf){
 // gui.add(tex.scale,'z',.02,.05).name('text scale z');
 // gui.add(tex.position,'x',-1,1).name('text position x');
 // gui.add(tex.rotation,'z',-1,1).name('text rotation z');
+gui.add(localPlane2.normal,'x',-3,3).name('lp2 n x');
+gui.add(localPlane2.normal,'y',-3,3).name('lp2 n y');
+gui.add(localPlane2.normal,'z',-3,3).name('lp2 n z');
+})
+// let helperr= new THREE.PlaneHelper(localPlane2,1,0xff0000);
+// scene.add(helperr)
+window.addEventListener('load',function(){
+  gsap.to(localPlane2.normal,{
+    y:-2.5,
+    duration:1.5,
+    delay:3,
+    ease:'power2.Out'
+  })
+
 
 })
 groupTwo.add(tex,torus,bio);

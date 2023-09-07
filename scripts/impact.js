@@ -15,7 +15,7 @@ const mouse = new THREE.Vector2();
 
 //texture
 const textureLoader = new THREE.TextureLoader();
-const gui = new dat.GUI();
+
 
 const planeTexture = textureLoader.load('./textures/world.5292.png');
 const hex = textureLoader.load('./textures/hex2.png');
@@ -141,19 +141,18 @@ const sizes = {
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0xffecec ,.004);
 //camera
-const camera= new THREE.PerspectiveCamera(75,sizes.width/sizes.height,.1,1000);
+const camera= new THREE.PerspectiveCamera(75,sizes.width/sizes.height,.1,200);
 //renderer
 const renderer = new THREE.WebGLRenderer({antialias:true,canvas:canvas});
 renderer.localClippingEnabled=true;
 renderer.setSize(innerWidth,innerHeight);
 renderer.setPixelRatio(devicePixelRatio);
 renderer.setClearColor(0xececec);
-
 renderer.shadowMap.enabled=true;
 renderer.shadowMap.type=THREE.PCFShadowMap;
 // renderer.shadowMap.type=THREE.VSMShadowMap;
 
-// scene.background= new THREE.Color('rgb(189, 255, 207)');
+
  // scene.add(new THREE.GridHelper(16, 16, "yellow", "black"));
 //clipping planes
 const localPlane = new THREE.Plane( new THREE.Vector3( 0,0, .1 ),-1.65);
@@ -228,7 +227,7 @@ curvedPanel.castShadow=true;
 scene.add(curvedPanel);
 
 curvedPanel.position.set(-31.5,0,-9.5);
-curvedPanel.rotation.set(0,0,0);
+// curvedPanel.rotation.set(0,0,0);
 
 // bending the plane
 function planeCurve(g, z){
@@ -321,7 +320,6 @@ const torusMaterial= new THREE.PointsMaterial({size:0.01,transparent:true,opacit
 const torus2Material= new THREE.PointsMaterial({color:0xff0000,size:0.008,transparent:true,opacity:0});
 const helper = new THREE.PlaneHelper(localPlane2,2,0x00ff00);
 const helper2 = new THREE.PlaneHelper(localPlane3,2,0x0000ff);
-
 // scene.add(helper,helper2);
 const torus= new THREE.Points(torusGeo,torusMaterial);
 const torus2= new THREE.Points(torusGeo2,torus2Material);
@@ -428,42 +426,67 @@ gLoader.load('./3d/dish 2.glb',function(gltf){
   dish.position.set(8,-15,5);
   dish.castShadow=true;
   dish.material.metalness=.2;
-  // dish.material.color = new THREE.Color(0xee0000);
   // dish.receiveShadow=true;
 
   // dish.material= new THREE.MeshBasicMaterial({opacity:0,transparent:true});
 dish.material.transparent=true;
   dish.material.opacity=0;
 dish.rotation.y=6;
-dish.wireframe=true;
+// dish.wireframe=true;
 
 group.add(dish,shadowPlane,torus);
 scene.add(group);
 // console.log(gltf.scene,dish);
   let sectionFour = gsap.timeline({
     scrollTrigger:{
-      trigger:'.prods',
+      trigger:'.veed',
       start:'top top',
       end:'bottom',
-      snap:1,
+      snap:.98,
       scrub:true,
       ease:'none',
       duration:2,
+
     }
 
   });
 
 if(window.innerWidth>1000){
   sectionFour
+
   // .to(document.body,{
   //   overflow:'hidden',
   //
   // },'simultaneously')
-  .to(dirLight.color,{
-    r:1,
-    g:0,
-    b:0,
+  .to(camera.position,{
+    x:0,
+    y:-15,
+    z:0
   },'simultaneously')
+  .to(camera.rotation,{
+    x:0,
+    y:7,
+    z:0
+  },'simultaneously')
+  .to('#play',{
+    opacity:0,
+    xPercent:-1000
+  },'simultaneously')
+  .to('#mute',{
+    opacity:0,
+    xPercent:1000
+  },'simultaneously')
+.to(curvedPanel.position,{
+  x:-3,
+  y:11,
+  z:0,
+  duration:20,
+  ease:'power1'
+})
+.to(curvedPanel,{
+  opacity:0,
+  ease:'none',
+},'simultaneously')
   .to(dirLight.position,{
     x:2.5,
     y:2,
@@ -536,18 +559,13 @@ if(window.innerWidth>1000){
     duration:1.5,
     // ease:'power1.out'
   },'simultaneously')
+
+
 }
 else if(window.innerWidth<1000){
   sectionFour
-  // .to(document.body,{
-  //   overflow:'hidden',
-  //
-  // },'simultaneously')
-  .to(dirLight.color,{
-    r:1,
-    g:0,
-    b:0,
-  },'simultaneously')
+
+
   .to(dirLight.position,{
     x:2.5,
     y:2,
@@ -628,30 +646,148 @@ else if(window.innerWidth<1000){
   },'simultaneously')
 
 
-  .to('.holder-2',{
-    width:'50vw',
-  },'simultaneously')
 
+  // .to('.holder-1 h2',{
+  //   rotateZ:0,
+  //   opacity:1,
+  //   fontSize:'1.4rem',
+  //   top:'75%',
+  //   // y:50,
+  // },'simultaneously')
+  // .to('.holder-2 h2',{
+  //   rotateZ:0,
+  //   opacity:1,
+  //   fontSize:'1.9rem',
+  //   // y:50,
+  //   top:'25%',
+  // },'simultaneously')
+  // .to('.holder-3 h2',{
+  //   rotateZ:0,
+  //   opacity:1,
+  //   fontSize:'1.9rem',
+  //   // y:50,
+  //   top:'75%',
+  // },'simultaneously')
+  // .to(document.body,{
+  //   overflowX:'hidden',
+  //   overflowY:'scroll'
+  // })
 }
 
+  // .to(canvas,{
+  //   position:'absolute',
+  //   bottom:'100%',
+  //   left:0,
+  // })
 
 
 
-
-  // gui.add(dish.position,'x',-3,2).name('dish p x');
-  // gui.add(dish.position,'y',-16,-14).name('dish p y');
-  // gui.add(dish.position,'z',-3,2).name('dish p z');
-  // gui.add(dish.rotation,'x',-2,2).name('dish r x');
-  // gui.add(dish.rotation,'y',-2,2).name('dish r y');
-  // gui.add(dish.rotation,'z',-2,2).name('dish r z');
+  gui.add(dish.position,'x',-3,2).name('dish p x');
+  gui.add(dish.position,'y',-16,-14).name('dish p y');
+  gui.add(dish.position,'z',-3,2).name('dish p z');
+  gui.add(dish.rotation,'x',-2,2).name('dish r x');
+  gui.add(dish.rotation,'y',-2,2).name('dish r y');
+  gui.add(dish.rotation,'z',-2,2).name('dish r z');
 
 })
+document.querySelector('.contact').addEventListener('click',()=>{
+  console.log(camera.position);
+})
+// let bioPres;
+// gLoader.load('./3d/bioshield text present.glb',function(gltf){
+//   scene.add(gltf.scene);
+//
+//   bioPres= gltf.scene.children[0];
+//   bioPres.material = new THREE.MeshBasicMaterial({color:0xFA1E0E,color:0x202020,clippingPlanes:[presPlane]});
+//   if(window.innerWidth>1000){
+// gltf.scene.scale.set(.06,.06,.06);
+// presPlane.normal.z=.12;
+//   }
+//   else if (window.innerWidth>600 && window.innerWidth <1000){
+//     gltf.scene.scale.set(.04,.04,.04);
+//     presPlane.normal.z=.05;
+//   }
+//   else if(window.innerWidth<600){
+//     gltf.scene.scale.set(.025,.025,.025);
+//     presPlane.normal.z=.02;
+//   }
+//
+// bioPres.position.set(-34.2,-16,1);
+//
+//
+// // gui.add(bioPres.position,'x',-50,50).name('pres p x');
+// // gui.add(bioPres.position,'y',-50,50).name('pres p y');
+// // gui.add(bioPres.rotation,'x',-1,1).name('pres r x');
+//
+//
+//
+// })
+let earth=[];
+function dirt(){
 
-let bioPres;
+
+gLoader.load('./3d/new assets/earth.glb',function(gltf){
+  scene.add(gltf.scene);
+
+  earth[0]= gltf.scene.children[0].children[0].children[0].children[0].children[0];
+  earth[1]= gltf.scene.children[0].children[0].children[0].children[1].children[0];
+  // earth.material = new THREE.MeshBasicMaterial({color:0xFA1E0E,color:0x202020,clippingPlanes:[presPlane]});
+  if(window.innerWidth>1000){
+// earth[0].scale.set(4,4,4);
+// earth[1].scale.set(4,4,4);
+earth.forEach((e)=>{
+  e.scale.set(4,4,4);
+
+  e.material.transparent= true;
+  e.material.opacity=0;
+  e.material.shininess=60;
+  e.material.metalness=.2;
+  e.material.roughness=.8;
+  e.material.map=textureLoader.load('./textures/earth2.png');
+  gsap.to(e.material,{
+    opacity:1,
+    duration:1,
+    delay:1,
+    ease:'none'
+  })
+
+})
+// presPlane.normal.z=.12;
+  }
+  // earth.material= new THREE.MeshPhysicalMaterial();
+console.log(earth[0],earth[1]);
+function rot(){
+requestAnimationFrame(rot)
+  earth.forEach((e)=>{
+    e.rotation.y+=0.001;
+})
+}
+rot();
+  // else if (window.innerWidth>600 && window.innerWidth <1000){
+  //   gltf.scene.scale.set(.04,.04,.04);
+  //   // presPlane.normal.z=.05;
+  // }
+  // else if(window.innerWidth<600){
+  //   gltf.scene.scale.set(.025,.025,.025);
+  //   // presPlane.normal.z=.02;
+  // }
+
+// earth.position.set(-34.2,-16,1);
+
+
+// gui.add(bioPres.position,'x',-50,50).name('pres p x');
+// gui.add(bioPres.position,'y',-50,50).name('pres p y');
+// gui.add(bioPres.rotation,'x',-1,1).name('pres r x');
+
+
+
+})
+}
+
 gLoader.load('./3d/new assets/while-c.glb',function(gltf){
   scene.add(gltf.scene);
   bio = gltf.scene.children[0];
-  gltf.scene.rotation.z=-0.05;
+  gltf.scene.rotation.z=-.1;
   if(window.innerWidth<600){
   gltf.scene.scale.set(.016,.016,.016);
   gltf.scene.position.x=-0;
@@ -669,7 +805,7 @@ gLoader.load('./3d/new assets/while-c.glb',function(gltf){
   else if(window.innerWidth>801){
   gltf.scene.scale.set(.03,.03,.03);
   gltf.scene.position.x=0;
-  gltf.scene.position.y=-.15;
+  gltf.scene.position.y=-.1;
 
   // gltf.scene.rotation.y=1.65;
   // gltf.scene.rotation.y=(Math.PI)/2;
@@ -686,9 +822,10 @@ gLoader.load('./3d/new assets/while-c.glb',function(gltf){
 
 
 })
+let were;
 gLoader.load('./3d/new assets/were.glb',function(gltf){
   scene.add(gltf.scene);
-  bioPres = gltf.scene.children[0];
+  were = gltf.scene.children[0];
   if(window.innerWidth<600){
   gltf.scene.scale.set(.016,.016,.016);
   gltf.scene.position.x=0;
@@ -716,7 +853,41 @@ gLoader.load('./3d/new assets/were.glb',function(gltf){
 
 
 
-  bioPres.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30,clippingPlanes:[werePlane]});
+  were.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30,clippingPlanes:[werePlane]});
+
+
+
+})
+
+let biolog;
+gLoader.load('./3d/new assets/biodef logo.glb',function(gltf){
+  // scene.add(gltf.scene);
+  biolog = gltf.scene.children[0];
+  if(window.innerWidth<600){
+  gltf.scene.scale.set(.02,.02,.02);
+  gltf.scene.position.x=-1.1;
+  gltf.scene.position.y=.15;
+  gltf.scene.position.z=1;
+  }
+  else if(window.innerWidth<800 && window.innerWidth> 601){
+  gltf.scene.scale.set(.035,.035,.035);
+  gltf.scene.position.y=.25;
+  gltf.scene.position.x=-1.92;
+  }
+  else if(window.innerWidth>801){
+  gltf.scene.scale.set(.035,.035,.035);
+  gltf.scene.position.x=-1.96;
+  gltf.scene.position.y=.3;
+  gltf.scene.position.z=1.5;
+  }
+
+  biolog.rotation.z= 1.6;
+
+
+
+
+
+  biolog.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30})
 
 
 
@@ -725,95 +896,36 @@ const whilePlane = new THREE.Plane(new THREE.Vector3(-0.18,-.44,0),-.77);
 const werePlane = new THREE.Plane(new THREE.Vector3(-2.95,-.44,0),-.77);
 const helper3 = new THREE.PlaneHelper(whilePlane,3,0x0000ff);
 const helper4 = new THREE.PlaneHelper(werePlane,3,0xab00ff);
-
-
-// scene.add(whilePlane,werePlane);
-gui.add(whilePlane.normal,'x',-4,4).name('wPlane px ');
-gui.add(whilePlane.normal,'y',-.18,.35).name('wPlane py ');
-gui.add(whilePlane.normal,'z',-4,4).name('wPlane pz ');
-gui.add(whilePlane,'constant',-5,5).name('wplane');
-gui.add(werePlane.normal,'x',-2.95,0).name('wePlane px ');
-gui.add(werePlane.normal,'y',.18,-.35).name('wePlane py ');
-gui.add(werePlane.normal,'z',-4,4).name('wePlane pz ');
-gui.add(werePlane,'constant',-5,5).name('weplane');
-
-// gui.add(whilePlane.rotation,'x',-4,4).name('wPlane rx ');
-// gui.add(whilePlane.rotation,'y',-4,4).name('wPlane rx ');
-// gui.add(whilePlane.rotation,'z',-4,4).name('wPlane rz ');
-let shake,tex;
-  let meshes=[];
-  function hand(){
-
-
-gLoader.load('./3d/new assets/handshake.glb',function(gltf){
-  scene.add(gltf.scene);
-  shake=gltf.scene;
-  shake.scale.set(.6,.6,.6);
-  shake.rotation.y=(Math.PI)/2;
-  shake.position.x=-0.3;
-  shake.position.z= -1;
-
-  if(window.innerWidth<600){
-    shake.scale.set(.3,.3,.3);
-  }
-
-  // shake.material= new THREE.MeshBasicMaterial({color:0x000000});
-
-shake.traverse(e=>(e.isMesh||e.isSkinnedMesh)&&meshes.push(e))
-
-meshes.forEach( mesh=>{
-//process this mesh...
-// mesh.material= new THREE.MeshLambertMaterial({reflectivity:0,emissive:false});
-mesh.material.transparent=true;
-mesh.material.opacity=0;
-
-dirLight.exclude= mesh;
-gsap.to(mesh.material,
-{
-  opacity:1,
-  duration:1,
-  ease:'none'
-})
-
-
-})
-
-  // console.log(gltf.scene)
-})
-}
-
 window.addEventListener('load',function(){
-  gsap.to(dirLight.color,{
-    r:1,
-    g:1,
-    b:1,
-  })
-      hand();
-
+  dirt();
   setTimeout(function(){
     gsap.to(whilePlane.normal,{
-      y:.45,
+      y:.35,
       duration:1.5,
+      delay:1.5,
       ease:'power1'
     }),
     gsap.to(werePlane.normal,{
       x:0,
       duration:1,
       delay:1.5,
+      delay:2.8,
       ease:'power1.Out'
     })
+    gsap.to(dirLight.color,{
+      r:1,
+      g:1,
+      b:1,
+    })
+  },400)
 
-
-  },2000);
 })
-
-
-// groupTwo.add(torus,bio);
+groupTwo.add(torus,bio);
 //lights
 const light= new THREE.AmbientLight(0xffffff,.1);
-const dirLight = new THREE.DirectionalLight(0xff0000,1)
+const dirLight = new THREE.DirectionalLight(0xffffff,1)
 // dirLight.castShadow=true;
-dirLight.exclude = [meshes,bioPres];
+
 
 dirLight.position.set(-1.39,-1.4,3.5);
 // dirLight.decay=10;
@@ -823,14 +935,49 @@ pLight.position.set(-3.3,-12,-1.1);
 pLight.castShadow=true;
 scene.add(dirLight,pLight);
 
-
-
-
+const gui = new dat.GUI();
+gui.add(camera.position,'x',-2,2).name('camera p x');
+gui.add(camera.position,'y',-20,20).name('camera p y');
+gui.add(camera.position,'z',-2,2).name('camera p z');
+gui.add(camera.rotation,'x',-2,2).name('camera r x');
+gui.add(camera.rotation,'y',-2,2).name('camera r y');
+gui.add(camera.rotation,'z',-2,2).name('camera r z');
+// gui.add(dirLight.position,'x',-15,15).name('dirLight x');
+// gui.add(dirLight.position,'y',-15,15).name('dirLight y');
+// gui.add(dirLight.position,'z',-15,15).name('dirLight z');
+// gui.add(impactVideoCube.position,'x',-15,10).name('impCube p x');
+// gui.add(impactVideoCube.position,'y',-25,10).name('impCube p y');
+// gui.add(impactVideoCube.position,'z',-28,10).name('impCube p z');
+// gui.add(impactVideoCube.rotation,'x',-6,6).name('impCube r x');
+// gui.add(impactVideoCube.rotation,'y',-6,6).name('impCube r y');
+// // gui.add(impactVideoCube.rotation,'z',-2,5).name('impCube r z');
+// gui.add(impactVideoCube.rotation,'z',-6,6).name('impCube r z');
+// gui.add(pLight.position,'x',-15,15).name('pLight x');
+// gui.add(pLight.position,'y',-15,15).name('pLight y');
+// gui.add(pLight.position,'z',-15,15).name('pLight z');
 
 gui.add(torus.rotation,'z',-5,5).name('torus rot z');
 gui.add(torus.rotation,'x',-5,5).name('torus rot x');
 gui.add(torus.position,'y',-5,5).name('torus pos y');
-
+// gui.add(torus2.rotation,'z',-5,5).name('torus2 rot z');
+// gui.add(localPlane2.normal,'x',-10,10).name('plane2 x');
+// gui.add(localPlane2.normal,'y',-10,10).name('plane2 y');
+// gui.add(localPlane2,'constant',-5,5).name('plane2');
+// gui.add(localPlane.normal,'x',-10,10).name('plane3 x');
+// gui.add(localPlane.normal,'y',-10,10).name('plane3 y');
+// gui.add(localPlane,'constant',-5,5).name('plane3');
+// gui.add(shadowPlane.rotation,'x',-3,3).name('shadowPlane r x');
+// gui.add(shadowPlane.rotation,'y',-3,3).name('shadowPlane r y');
+// gui.add(shadowPlane.rotation,'z',-3,3).name('shadowPlane r z');
+// gui.add(shadowPlane.position,'x',-20,3).name('shadowPlane p x');
+// gui.add(shadowPlane.position,'y',-20,3).name('shadowPlane p y');
+// gui.add(shadowPlane.position,'z',-20,3).name('shadowPlane p z');
+// gui.add(torus2.position,'x',-20,3).name('torus2 p x');
+// gui.add(torus2.position,'y',-20,3).name('torus2 p y');
+// gui.add(torus2.position,'z',-20,3).name('torus2 p z');
+// gui.add(torus2.rotation,'x',-3,3).name('torus2 r x');
+// gui.add(torus2.rotation,'y',-3,3).name('torus2 r y');
+// gui.add(torus2.rotation,'z',-3,3).name('torus2 r z');
 
 scene.add(groupTwo);
 document.addEventListener('mousemove',onDocumentMouseMove)
@@ -869,7 +1016,17 @@ window.addEventListener("orientationchange", function(e) {
   }
 }, false);
 // console.log(curvedPanel);
-
+// function callback(){
+//   if(window.matchMedia("(pointer: coarse)").matches && window.matchMedia("(orientation: landscape)").matches )
+//   geomPar.width=6.7;
+//   geomPar.height=4;
+//   geom.needsUpdate=true;
+//   curvedPanel.geometry.parameters.width=6.7;
+//   curvedPanel.geometry.parameters.height=4;
+//   curvedPanel.geometry.parameters.needsUpdate=true;
+//   curvedPanel.needsUpdate=true;
+//
+// }
 window.addEventListener('resize', () =>{
   //update sizes
   sizes.width=window.innerWidth;
@@ -964,11 +1121,82 @@ window.addEventListener('mousemove', event=>{
 // 	}
 
 })
+let sectionTwoHalfNew = gsap.timeline({
+  scrollTrigger:{
+    trigger:'.prods',
+    start:'top top',
+    end:'bottom',
+    snap:.98,
+    scrub:true,
+    ease:'none'
+  }
+});
+sectionTwoHalfNew
 
+
+  .to(camera.position,{
+    x:0,
+    y:0,
+    z:-15,
+    duration:2,
+
+  },"simultaneously")
+  .to(camera.rotation,{
+    x:0,
+    y:0,
+    z:0.8,
+    duration:2,
+
+  },"simultaneously")
+
+  .to(curvedPanel.position,{
+    x:-3.7,
+    y:-15,
+    z:-4,
+  },"simultaneously")
+
+
+  .from('#play',{
+    xPercent:-1000,
+
+    opacity:0,
+
+
+
+  },'simultaneously')
+  .from("#mute",{
+    xPercent:1000,
+
+    opacity:0,
+
+
+  },'simultaneously')
+  .to(mat,{
+
+    opacity:1,
+    duration:1,
+    ease:'power1',
+  })
+  .to(curvedPanel.rotation,{
+    x:0,
+    y:-1.6,
+    z:0,
+  },"simultaneously")
+
+
+  .add(function(){
+    veedeeo.pause();
+  })
+
+gui.add(curvedPanel.position,'x',-5,5).name('cpanel p x');
+gui.add(curvedPanel.position,'y',-15,5).name('cpanel p y');
+gui.add(curvedPanel.position,'z',-10,5).name('cpanel p z');
+gui.add(curvedPanel.rotation,'x',-5,5).name('cpanel r x');
+gui.add(curvedPanel.rotation,'y',-1,1).name('cpanel r y');
+gui.add(curvedPanel.rotation,'z',-1,1).name('cpanel r z');
 // console.log(found);
 const clock = new THREE.Clock();
 function animate(){
-
 
 
 
@@ -981,7 +1209,11 @@ function animate(){
 
 
   torus2.rotation.z+=0.0005;
-
+  // earth[0].rotation.y+=0.001;
+  // earth[1].rotation.y+=0.001;
+  // impactVideoCube.rotation.y+=0.001;
+  // impactVideoCube.rotation.x+=0.001;
+  // impactVideoCube.rotation.z+=0.001;
   // dish.rotation.z+=.001;
 
 
@@ -995,9 +1227,8 @@ particlesMesh.rotation.z= -.009 *elapsedTime;
 if(mouseX < window.innerWidth || mouseY <window.innerHeight ){
 particlesMesh.rotation.x = (mouseY *0.00005)/2;
 particlesMesh.rotation.y = (mouseX *0.00003)/2;
-curvedPanel.rotation.y= -(mouseX *0.00001);
-
-// curvedPanel.rotation.z= -(mouseY *0.00001);
+// curvedPanel.rotation.y= .7;
+curvedPanel.rotation.y= .7 +(-(mouseX *0.00001));
 
 }
 // let portrait = window.matchMedia("(orientation: portrait)");
@@ -1023,71 +1254,52 @@ const cards=document.querySelector('.cards');
 const card= document.querySelectorAll('.card');
 const veed=document.querySelector('.veed');
 const space=document.querySelector('.space');
-
-  let dirAnim =gsap.timeline({
-  repeat:-1,
-  yoyo:true,
-  });
-  dirAnim
-
-  .to(dirLight.position,{
-    x:-2,
-    duration:1,
-    ease:'power1.out',
-  })
-  .to(dirLight,{
-    intensity:1.2,
-    duration:2,
-  })
-  .to(dirLight.position,{
-    x:0,
-    duration:1,
-    ease:'power1.out',
-  })
-  .to(dirLight.position,{
-    x:2,
-    duration:1,
-    ease:'power1.out'
-  })
-  .to(dirLight,{
-    intensity:1,
-    duration:2,
-  })
-
-
-//sectionOne timeline
-let sectionOne = gsap.timeline({
+let dirAnim =gsap.timeline({
+repeat:-1,
+yoyo:true,
+});
+dirAnim
+.to(dirLight.position,{
+  x:-2,
+  duration:1,
+  ease:'power1.out',
+})
+.to(dirLight,{
+  intensity:2,
+  duration:2,
+})
+.to(dirLight.position,{
+  x:0,
+  duration:1,
+  ease:'power1.out',
+})
+.to(dirLight.position,{
+  x:2,
+  duration:1,
+  ease:'power1.out'
+})
+.to(dirLight,{
+  intensity:1,
+  duration:2,
+})
+let sectionOneNew = gsap.timeline({
   scrollTrigger:{
     trigger:canvas,
     start:'top top',
-    end:"bottom",
+    end:'bottom',
     scrub:true,
     snap:.98,
-    // snap:1,
-    // pin:true,
-    // snap:space.bottom,
-    // markers:true,
-    // pinSpacing:false,
-    ease:'none',
-
-
+    ease:'none'
   }
-
 });
 if( window.innerWidth<600 && window.innerWidth>280){
-  // console.log('mobile');
-  sectionOne
+
+  sectionOneNew
   .to('.scroll',{
     opacity:0,
     scale:0,
     delay:.5,
   })
-  .to(dirLight.color,{
-    r:1,
-    g:1,
-    b:1,
-
-  },'simultaneously')
   .to(document.body,{
     overflow:'hidden',
   })
@@ -1117,10 +1329,7 @@ if( window.innerWidth<600 && window.innerWidth>280){
           size:.003,
         },'simultaneously')
 
-      .to('.holder-2',{
-        width:'50vw',
 
-      },'simultaneously')
 
 
       .to(document.body,{
@@ -1130,21 +1339,12 @@ if( window.innerWidth<600 && window.innerWidth>280){
 }
 if(window.innerWidth>1000){
 
-sectionOne
+sectionOneNew
 .to('.scroll',{
   opacity:0,
   scale:0,
   delay:.5,
 })
-.to(dirLight.color,{
-  r:1,
-  g:1,
-  b:1,
-
-},'simultaneously')
-// .to(document.body,{
-//   overflow:'hidden',
-// })
 
 .to(camera.position,{
   y:-1.1,
@@ -1168,26 +1368,16 @@ sectionOne
       ease:'power1',
     })
 
-    .to('.holder-2',{
-      width:'50vw',
-
-    },'simultaneously')
 
   }
   else if( window.innerWidth<1000 && window.innerWidth>600){
-    // console.log('tab');
-    sectionOne
+
+    sectionOneNew
     .to('.scroll',{
       opacity:0,
       scale:0,
       delay:.5,
     })
-    .to(dirLight.color,{
-      r:1,
-      g:1,
-      b:1,
-
-    },'simultaneously')
     .to(document.body,{
       overflow:'hidden',
     })
@@ -1214,10 +1404,177 @@ sectionOne
           ease:'power1',
         })
 
-        .to('.holder-2',{
-          width:'50vw',
 
+
+
+        .to(document.body,{
+          overflowX:'hidden',
+          overflowY:'scroll'
+        })
+  }
+
+//sectionOne timeline
+// let sectionOne = gsap.timeline({
+//   scrollTrigger:{
+//     trigger:canvas,
+//     start:'top top',
+//     end:"bottom",
+//     scrub:true,
+//     snap:.98,
+//     // snap:1,
+//     // pin:true,
+//     // snap:space.bottom,
+//     // markers:true,
+//     // pinSpacing:false,
+//     ease:'none',
+//
+//
+//   }
+//
+// });
+if( window.innerWidth<600 && window.innerWidth>280){
+  // console.log('mobile');
+  sectionOneNew
+  .to('.scroll',{
+    opacity:0,
+    scale:0,
+    delay:.5,
+  })
+  .to(document.body,{
+    overflow:'hidden',
+  })
+
+  .to(camera.position,{
+    y:-.2,
+    z:-.01,
+    x:.8,
+    duration:4,},"simultaneously")
+    .to(camera,{
+      fov:75,
+    },'simultaneously')
+    .to(camera.rotation,{
+      x:.08,
+      y:-.75,
+      z:-0.3,
+      duration:4,
+    },"simultaneously")
+    .to(torusMaterial.color,{
+        r:1,
+        g:.05,
+        b:.1,
+        duration:2,
+        ease:'power1',
+      })
+      .to(torusMaterial,{
+          size:.003,
         },'simultaneously')
+
+
+
+
+      .to(document.body,{
+        overflowX:'hidden',
+        overflowY:'scroll'
+      })
+}
+if(window.innerWidth>1000){
+
+sectionOneNew
+.to('.scroll',{
+  opacity:0,
+  scale:0,
+  delay:.5,
+})
+// .to(document.body,{
+//   overflow:'hidden',
+// })
+
+.to(camera.position,{
+  y:-1.1,
+  z:-.28,
+  x:1.35,
+  duration:4,},"simultaneously")
+  .to(camera,{
+    fov:75,
+  },'simultaneously')
+  .to(camera.rotation,{
+    x:0,
+    y:-1,
+    z:0,
+    duration:4,
+  },"simultaneously")
+  .to(torusMaterial.color,{
+      r:1,
+      g:.05,
+      b:.1,
+      duration:2,
+      ease:'power1',
+    })
+
+
+
+    // .to('.holder-1 h2',{
+    //   rotateZ:0,
+    //   opacity:1,
+    //   fontSize:'1.9rem',
+    //   top:'75%',
+    //   // y:50,
+    // },'simultaneously')
+    // .to('.holder-2 h2',{
+    //   rotateZ:0,
+    //   opacity:1,
+    //   fontSize:'1.9rem',
+    //   // y:50,
+    //   top:'25%',
+    // },'simultaneously')
+    // .to('.holder-3 h2',{
+    //   rotateZ:0,
+    //   opacity:1,
+    //   fontSize:'1.9rem',
+    //   // y:50,
+    //   top:'75%',
+    // },'simultaneously')
+
+    // .to(document.body,{
+    //   overflowX:'hidden',
+    //   overflowY:'scroll'
+    // })
+  }
+  else if( window.innerWidth<1000 && window.innerWidth>600){
+    // console.log('tab');
+    sectionOne
+    .to('.scroll',{
+      opacity:0,
+      scale:0,
+      delay:.5,
+    })
+    .to(document.body,{
+      overflow:'hidden',
+    })
+
+    .to(camera.position,{
+      y:-1.3,
+      z:.45,
+      x:-0.8,
+      duration:4,},"simultaneously")
+      .to(camera,{
+        fov:75,
+      },'simultaneously')
+      .to(camera.rotation,{
+        x:0.2,
+        y:-0.4,
+        z:-2,
+        duration:4,
+      },"simultaneously")
+      .to(torusMaterial.color,{
+          r:1,
+          g:.05,
+          b:.1,
+          duration:2,
+          ease:'power1',
+        })
+
+
 
 
         .to(document.body,{
@@ -1227,18 +1584,18 @@ sectionOne
   }
 
   //swiper animation
-  // gsap.from('.cards .swiper',{
-  //   opacity:0,
-  //   scale:.1,
-  //   duration:.5,
-  //   ease:'power1',
-  //   scrollTrigger:{
-  //     trigger:'.cards',
-  //     toggleActions:"play reset play reverse",
-  //     start:"-10% top",
-  //     end:"bottom"
-  //   }
-  // })
+  gsap.from('.cards .swiper',{
+    opacity:0,
+    // scale:.5,
+    // duration:.5,
+    ease:'none',
+    scrollTrigger:{
+      trigger:'.cards',
+      toggleActions:"play reset play reverse",
+      start:"-20% top",
+      end:"bottom"
+    }
+  })
   gsap.from('.cards hr',{
     opacity:0,
     scaleX:0,
@@ -1252,124 +1609,23 @@ sectionOne
     }
   })
 
-  gsap.from('.founders-holder',{
-    opacity:0,
-    xPercent:-100,
-    scrub:true,
-    duration:.8,
-    // delay:.8,
-    ease:'none',
-    scrollTrigger:{
-      trigger:'.prods',
-      toggleActions:"play reverse play reverse",
-      start:"-50% top",
-      end:"bottom"
-    }
-  })
 
-
-  //sectionTwo timeline
-  let sectionTwo = gsap.timeline({
-    scrollTrigger:{
-      trigger:cards,
-      start:'top top',
-      // duration:4,
-      // pin:true,
-      end:'bottom',
-      scrub:0,
-      snap:.98,
-      // markers:true,
-      // pinSpacing:false,
-      ease:'none',
-      // onUpdate: self => {
-      //     console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
-      //   }
-    }
-
-
-  });
-  sectionTwo
-  // .to(document.body,{
-  //   overflow:'hidden',
-  // },'simultaneously')
-  .to(camera,{
-    fov:75,
-  },'simultaneously')
-  .to(camera.position,{
-    x:0,
-    y:0,
-    z:-15,
-    duration:2,
-
-  },"simultaneously")
-  .to(camera.rotation,{
-    x:0,
-    y:0,
-    z:0.8,
-    duration:2,
-
-  },"simultaneously")
-
-  .to(curvedPanel.position,{
-    x:-0.09,
-    y:.1,
-    z:-20.5,
-  },"simultaneously")
-
-
-  .from('#play',{
-    xPercent:-800,
-
-    opacity:0,
-
-
-  },'simultaneously')
-  .from("#mute",{
-    xPercent:800,
-
-    opacity:0,
-
-  },'simultaneously')
-  .to(mat,{
-
-    opacity:1,
-    duration:1,
-    ease:'power1',
-  })
-  .to(curvedPanel.rotation,{
-    x:0,
-    y:0,
-    z:.8,
-  },"simultaneously")
-
-  .to('.holder-2',{
-    width:'50vw',
-
-  },'simultaneously')
-  .add(function(){
-    veedeeo.pause();
-  })
-
-
-let sectionTwoHalf =gsap.timeline({
+let sectionTwoNew= gsap.timeline({
   scrollTrigger:{
-    trigger:'.veed',
+    trigger:cards,
     start:'top top',
-    // start:'top top',
     end:'bottom',
-    snap:.99,
+    snap:.98,
     scrub:true,
     ease:'none'
   }
+
 });
-if(window.innerWidth>600 && window.innerWidth<1000 && window.matchMedia("(pointer: coarse)")){
-  sectionTwoHalf
-  .to(document.body,{
-    overflow:'hidden',
-  })
+if(window.innerWidth>1000){
+  sectionTwoNew
 
   .to(camera.position,{
-    x:-1,
+    x:0,
     y:0,
     z:-5,
   },'simultaneously')
@@ -1377,64 +1633,6 @@ if(window.innerWidth>600 && window.innerWidth<1000 && window.matchMedia("(pointe
     x:0,
     y:0,
     z:0,
-  },'simultaneously')
-  .to(curvedPanel.material,{
-    opacity:0,
-  },'simultaneously')
-  .to('#play',{
-    opacity:0,
-    xPercent:-1000
-  },'simultaneously')
-  .to('#mute',{
-    opacity:0,
-    xPercent:1000
-  },'simultaneously')
-
-  .to('.holder-2',{
-    width:'90vw',
-    height:'90vh'
-
-  },'simultaneously')
-
-  .to('.holder-2 .over',{
-    display:'none',
-  })
-
-  .add(function(){
-    veedeeo.pause();
-  })
-  .to(document.body,{
-    overflowX:'hidden',
-    overflowY:'scroll'
-  })
-}
-else if(window.innerWidth>1000){
-  sectionTwoHalf
-  // .to(document.body,{
-  //   overflow:'hidden',
-  // })
-
-  .to(camera.position,{
-    x:-1,
-    y:0,
-    z:-5,
-  },'simultaneously')
-  .to(camera.rotation,{
-    x:0,
-    y:0,
-    z:0,
-  },'simultaneously')
-  .to(curvedPanel.material,{
-    opacity:0,
-  },'simultaneously')
-
-  .to('#play',{
-    opacity:0,
-    xPercent:-1000
-  },'simultaneously')
-  .to('#mute',{
-    opacity:0,
-    xPercent:1000
   },'simultaneously')
 
   .to('.holder-2',{
@@ -1444,95 +1642,185 @@ else if(window.innerWidth>1000){
   .to('.holder-2 .over',{
     display:'none',
   })
-  // .add(function(){
-  //   veedeeo.pause();
-  // })
+
   .add(function(){
-    // veedeeo.muted=true;
+
     veedeeo.pause();
     play.classList.remove('active');
 play.children[0].src='images/play1.png';
 play.style.background= 'rgba(150,150,150,.4)';
 
-    // setInterval(function(){veedeeo.pause()},100);
-
-
-
   },'simultaneously')
 
 }
-else if(window.innerWidth>280 && window.innerWidth<600 && window.matchMedia("(pointer: coarse)")){
-  // console.log('yes');
-  sectionTwoHalf
-  .to(document.body,{
-    overflow:'hidden',
-  })
 
-  .to(camera.position,{
-    x:-1,
-    y:0,
-    z:-5,
-  },'simultaneously')
-  .to(camera.rotation,{
-    x:0,
-    y:0,
-    z:0,
-  },'simultaneously')
-  .to(curvedPanel.material,{
-    opacity:0,
-  },'simultaneously')
-  .to('#play',{
-    opacity:0,
-    xPercent:-1000
-  },'simultaneously')
-  .to('#mute',{
-    opacity:0,
-    xPercent:1000
-  },'simultaneously')
-
-  .to('.holder-2',{
-    width:'90vw',
-    height:'90vh'
-
-  },'simultaneously')
-
-  .to('.holder-2 h2',{
-    rotateZ:'0deg',
-    opacity:0,
-    fontSize:'1rem',
-    // y:50,
-    top:'50%',
-  },'simultaneously')
-
-  .add(function(){
-    veedeeo.muted=true;
-    veedeeo.pause();
-    play.classList.remove('active');
-play.children[0].src='images/play1.png';
-play.style.background= 'rgba(150,150,150,.4)';
-
-    // setInterval(function(){veedeeo.pause()},100);
-
-
-
-  },'simultaneously')
-  .to(document.body,{
-    overflowX:'hidden',
-    overflowY:'scroll'
-  })
-}
+//sectionTwoHalf start
+// let sectionTwoHalf =gsap.timeline({
+//   scrollTrigger:{
+//     trigger:'.veed',
+//     start:'top top',
+//     end:'bottom',
+//     snap:.99,
+//     scrub:true,
+//     ease:'none'
+//   }
+// });
+// if(window.innerWidth>600 && window.innerWidth<1000 && window.matchMedia("(pointer: coarse)")){
+//   sectionTwoHalf
+//   .to(document.body,{
+//     overflow:'hidden',
+//   })
+//
+//   .to(camera.position,{
+//     x:-1,
+//     y:0,
+//     z:-5,
+//   },'simultaneously')
+//   .to(camera.rotation,{
+//     x:0,
+//     y:0,
+//     z:0,
+//   },'simultaneously')
+//   .to(curvedPanel.material,{
+//     opacity:0,
+//   },'simultaneously')
+//   .to('#play',{
+//     opacity:0,
+//     xPercent:-1000
+//   },'simultaneously')
+//   .to('#mute',{
+//     opacity:0,
+//     xPercent:1000
+//   },'simultaneously')
+//
+//   .to('.holder-2',{
+//     width:'90vw',
+//     height:'90vh'
+//
+//   },'simultaneously')
+//
+//   .to('.holder-2 .over',{
+//     display:'none',
+//   })
+//
+//   .add(function(){
+//     veedeeo.pause();
+//   })
+//   .to(document.body,{
+//     overflowX:'hidden',
+//     overflowY:'scroll'
+//   })
+// }
+// else if(window.innerWidth>1000){
+//   sectionTwoHalf
+//
+//   .to(camera.position,{
+//     x:-1,
+//     y:0,
+//     z:-5,
+//   },'simultaneously')
+//   .to(camera.rotation,{
+//     x:0,
+//     y:0,
+//     z:0,
+//   },'simultaneously')
+//   .to(curvedPanel.material,{
+//     opacity:0,
+//   },'simultaneously')
+//
+//   .to('#play',{
+//     opacity:0,
+//     xPercent:-1000
+//   },'simultaneously')
+//   .to('#mute',{
+//     opacity:0,
+//     xPercent:1000
+//   },'simultaneously')
+//
+//   .to('.holder-2',{
+//     width:'90vw',
+//     height:'90vh',
+//   },'simultaneously')
+//   .to('.holder-2 .over',{
+//     display:'none',
+//   })
+//
+//   .add(function(){
+//
+//     veedeeo.pause();
+//     play.classList.remove('active');
+// play.children[0].src='images/play1.png';
+// play.style.background= 'rgba(150,150,150,.4)';
+// },'simultaneously')
+//
+// }
+// else if(window.innerWidth>280 && window.innerWidth<600 && window.matchMedia("(pointer: coarse)")){
+//
+//   sectionTwoHalf
+//   .to(document.body,{
+//     overflow:'hidden',
+//   })
+//
+//   .to(camera.position,{
+//     x:-1,
+//     y:0,
+//     z:-5,
+//   },'simultaneously')
+//   .to(camera.rotation,{
+//     x:0,
+//     y:0,
+//     z:0,
+//   },'simultaneously')
+//   .to(curvedPanel.material,{
+//     opacity:0,
+//   },'simultaneously')
+//   .to('#play',{
+//     opacity:0,
+//     xPercent:-1000
+//   },'simultaneously')
+//   .to('#mute',{
+//     opacity:0,
+//     xPercent:1000
+//   },'simultaneously')
+//
+//   .to('.holder-2',{
+//     width:'90vw',
+//     height:'90vh'
+//   },'simultaneously')
+//
+//   .add(function(){
+//     veedeeo.muted=true;
+//     veedeeo.pause();
+//     play.classList.remove('active');
+// play.children[0].src='images/play1.png';
+// play.style.background= 'rgba(150,150,150,.4)';
+//   },'simultaneously')
+//   .to(document.body,{
+//     overflowX:'hidden',
+//     overflowY:'scroll'
+//   })
+// }
+//-----------------------//sectionTwoHalf end ------------------------------------
+// let sectionThreeNew = gsap.timeline({
+//   //----------------------//sectionThreeNew start-----------------------------------
+//   scrollTrigger:{
+//     trigger:'.veed',
+//     start:'top top',
+//     end:'bottom',
+//     scrub:true,
+//     snap:.99,
+//     ease:'none'
+//   }
+// });
 
 let sectionThree = gsap.timeline({
   scrollTrigger:{
     trigger:'.prods',
-    // start:'5% top',
     start:'top top',
-    // endTrigger:'.impact',
     end:'bottom',
     makers:true,
     scrub:true,
-    // snap:1,
-    snap:.995,
+    snap:.98,
     ease:'none',
 
   }
@@ -1566,9 +1854,7 @@ sectionThree
 }
 else if(window.innerWidth>1000){
   sectionThree
-  // .to(document.body,{
-  //   overflow:'hidden',
-  // })
+
   .to(camera.position,{
     x:0,
     y:-15,
@@ -1588,7 +1874,18 @@ const holder1= document.querySelector('.holder-1');
 const holder2= document.querySelector('.holder-2');
 const holder3= document.querySelector('.holder-3');
 const prodHolder= document.querySelector('.prods-holder');
-
+//
+// holder2.addEventListener('mouseleave',function(){
+//
+//   // holder2.querySelector('video').pause();
+//   // gsap.to('.holder-2 .over',{
+//   //   background:'rgba(0,0,0,.7)',
+//   // })
+//
+//   // gsap.to('.holder-2 .writeup',{
+//   //   opacity:0
+//   // })
+// })
 
 holder2.addEventListener('click',function(){
   holder2.querySelector('video').play();
@@ -1602,7 +1899,32 @@ holder2.addEventListener('click',function(){
     width:'90vw',
     height:'90vh'
   })
-
+  // gsap.to(holder1,{
+  //   width:'90vw',
+  //   height:'8vh'
+  // })
+  // gsap.to(holder3,{
+  //   width:'90vw',
+  //   height:'8vh'
+  // })
+  // gsap.to(holder1.querySelector('h2'),{
+  //   opacity:1,
+  //   fontSize:'1rem',
+  //   rotateZ:'0deg',
+  //   width:300,
+  //   // y:'500%',
+  //   top:'40%',
+  //
+  // })
+  // gsap.to(holder3.querySelector('h2'),{
+  //   opacity:1,
+  //   fontSize:'1rem',
+  //   rotateZ:'0deg',
+  //   width:300,
+  //   // y:'500%',
+  //   top:'40%',
+  //
+  // })
 
   gsap.to(holder2.querySelector('h2'),{
     rotateZ:0,
@@ -1610,7 +1932,12 @@ holder2.addEventListener('click',function(){
     fontSize:'1rem',
   })
 
-
+  // gsap.to(holder1.querySelector('img'),{
+  //   opacity:1,
+  // })
+  // gsap.to(holder2.querySelector('img'),{
+  //   opacity:0,
+  // })
   }
   else if(window.innerWidth>1000){
 
@@ -1618,12 +1945,51 @@ holder2.addEventListener('click',function(){
   gsap.to('.holder-2 .over',{
     background:'rgba(0,0,0,0)'
   })
-
+  // gsap.to('.holder-2 video',{
+  //   objectPosition:'center'
+  // })
+  // gsap.to('.holder-2 .writeup',{
+  //   opacity:1
+  // })
 gsap.to(holder2,{
   width:'94vw',
   height:'100vh'
 })
+// gsap.to(holder1,{
+//   width:'8vw',
+//
+// })
+// gsap.to(holder3,{
+//   width:'8vw',
+//
+// })
+// gsap.to(holder1.querySelector('h2'),{
+//   fontSize:'1.4rem',
+//   opacity:1,
+//   fontSize:'1.4rem',
+//   rotateZ:'90deg',
+//   width:300,
+//
+//   top:'50%',
+//
+// })
+// gsap.to(holder3.querySelector('h2'),{
+//   fontSize:'1.4rem',
+//   opacity:1,
+//   fontSize:'1.4rem',
+//   rotateZ:'90deg',
+//   width:300,
+//
+//   top:'50%',
+//
+// })
 
+// gsap.to(holder1.querySelector('img'),{
+//   opacity:0,
+// })
+// gsap.to(holder2.querySelector('img'),{
+//   opacity:1,
+// })
 gsap.to(holder2.querySelector('h2'),{
   rotateZ:0,
   opacity:0,
@@ -1634,22 +2000,119 @@ else if(window.innerWidth<600 && window.innerWidth>280){
   gsap.to('.holder-2 .over',{
     background:'rgba(0,0,0,0)'
   })
-
+  // gsap.to('.holder-2 .writeup',{
+  //   opacity:1,
+  // })
 gsap.to(holder2,{
   width:'100vw',
   height:'100vh'
 })
-
+// gsap.to(holder1,{
+//   width:'90vw',
+//   height:'8vh'
+// })
+// gsap.to(holder3,{
+//   width:'90vw',
+//   height:'8vh'
+// })
+// gsap.to(holder1.querySelector('h2'),{
+//   opacity:1,
+//   fontSize:'1rem',
+//   rotateZ:'0deg',
+//   width:300,
+//   top:'40%',
+//
+// })
+// gsap.to(holder3.querySelector('h2'),{
+//   opacity:1,
+//   fontSize:'1rem',
+//   rotateZ:'0deg',
+//   width:300,
+//   top:'40%',
+//
+// })
 
 gsap.to(holder2.querySelector('h2'),{
   rotateZ:0,
   opacity:0,
   fontSize:'1rem',
 })
+// gsap.to(holder2.querySelector('video'),{
+//   objectPosition:'0px 0px !important',
+// })
 
+// gsap.to(holder1.querySelector('img'),{
+//   opacity:1,
+// })
+// gsap.to(holder2.querySelector('img'),{
+//   opacity:0,
+// })
 }
 })
+//impact cube animations
 
+// const good = document.getElementById('good');
+// const free = document.getElementById('free');
+// const zero = document.getElementById('zero');
+// const save = document.getElementById('save');
+// const control = document.getElementById('control');
+// const contain = document.getElementById('contain');
+
+// good.addEventListener('mouseover',function(){
+//   gsap.to(impactVideoCube.rotation,{
+//     x:-0.1,
+//     y:3.,
+//     z:-0.24,
+//     duration:2,
+//     ease:'power1.inOut',
+//   })
+// })
+//
+// save.addEventListener('mouseover',function(){
+//   gsap.to(impactVideoCube.rotation,{
+//     x:5.1,
+//     y:1.3,
+//     z:1.1,
+//     duration:2,
+//     ease:'power1.inOut',
+//   })
+// })
+// zero.addEventListener('mouseover', function(){
+//   gsap.to(impactVideoCube.rotation,{
+//     x:1.5,
+//     y:3.4,
+//     z:4.5,
+//     duration:2,
+//     ease:'power2.inOut',
+//   })
+// })
+// free.addEventListener('mouseover',function(){
+//   gsap.to(impactVideoCube.rotation,{
+//     x:1.5,
+//     y:.3,
+//     z:-1.4,
+//     duration:2,
+//     ease:'power2.inOut',
+//   })
+// })
+// control.addEventListener('mouseover',function(){
+//   gsap.to(impactVideoCube.rotation,{
+//     x:-0.8,
+//     y:-1.85,
+//     z:-0.7,
+//     duration:2,
+//     ease:'power2.inOut',
+//   })
+// })
+// contain.addEventListener('mouseover',function(){
+//   gsap.to(impactVideoCube.rotation,{
+//     x:0,
+//     y:-0.2,
+//     z:0.3,
+//     duration:2,
+//     ease:'power1.inOut',
+//   })
+// })
 //contact details animations
 const telephone = document.querySelector('.phone');
 const marker = document.querySelectorAll('.address');
@@ -1699,7 +2162,26 @@ inp.onkeydown = function(){
     })
   }
 }
-
+// function inpAnim2(e){
+// //   if(inp.value.length>0){
+// //     gsap.to(dish.rotation,{
+// //       y:'+=0.5',
+// //       duration:.5,
+// //       ease:'power1'
+// //     })
+// //
+// //
+// // }
+// // else if(inp.value.length===0){
+// //   gsap.to(dish.rotation,{
+// //     y:0,
+// //     duration:.5,
+// //     ease:'power1'
+// //   })
+// // }
+//
+//
+// }
 function inpAnim(){
   let animation = gsap.timeline();
   if(window.innerWidth<600 && window.innerWidth>280){
@@ -1764,7 +2246,17 @@ function emailAnim(){
     z:3,
   })
   animation
-
+  // .to(mail[0].position,{
+  //   x:-.5,
+  //   y:2.2,
+  //   z:-15.65,
+  //   duration:1,
+  //   ease:'power1'
+  // },'simultaneously')
+  // .to(mail[0].material,{
+  //   opacity:0,
+  //   ease:'power1'
+  // },'simultaneously')
   .to(mail[1].position,{
     x:-.45,
     y:2.35,
@@ -1876,7 +2368,11 @@ telephone.addEventListener('mouseover',function(){
   },400)
 });
 telephone.addEventListener('mouseleave',clear);
-
+// marker.forEach(mark).addEventListener('mouseover',function(){
+//   timeoutId=window.setTimeout(function(){
+//     addressAnim();
+//   },400)
+// });
 marker.forEach((mark) => {
   mark.onmouseover= function(){
     timeoutId=window.setTimeout(function(){
@@ -1887,7 +2383,11 @@ marker.forEach((mark) => {
 marker.forEach((mark) => {
   mark.addEventListener('mouseleave',clear)
   });
+// marker.addEventListener('mouseleave',clear);
 
+// marker.forEach(mark => {
+//   mark.addEventListener('mouseover',addressAnim);
+// })
 email.addEventListener('mouseover',function(){
   timeoutId=window.setTimeout(function(){
     emailAnim();

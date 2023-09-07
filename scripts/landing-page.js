@@ -141,7 +141,7 @@ const sizes = {
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0xffecec ,.004);
 //camera
-const camera= new THREE.PerspectiveCamera(75,sizes.width/sizes.height,.1,1000);
+const camera= new THREE.PerspectiveCamera(75,sizes.width/sizes.height,.1,500);
 //renderer
 const renderer = new THREE.WebGLRenderer({antialias:true,canvas:canvas});
 renderer.localClippingEnabled=true;
@@ -157,7 +157,7 @@ renderer.shadowMap.type=THREE.PCFShadowMap;
 //clipping planes
 const localPlane = new THREE.Plane( new THREE.Vector3( 0,0, .1 ),-1.65);
 const presPlane = new THREE.Plane( new THREE.Vector3( 0,0, .1 ),-1.65);
-const localPlane2 = new THREE.Plane(new THREE.Vector3(1,3.4,0),-.14);
+const localPlane2 = new THREE.Plane(new THREE.Vector3(0.4,1,0),-.14);
 const localPlane3 = new THREE.Plane(new THREE.Vector3(0.16,-.71,0),-.9);
 
 //particles
@@ -689,13 +689,27 @@ gLoader.load('./3d/new assets/biodef logo.glb',function(gltf){
   }
 
   bio.rotation.z= 1.6;
+  bio.position.z=-2;
 
 
 
 
 
-  bio.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30})
+  bio.material= new THREE.MeshPhongMaterial({color:0xff0000,shininess:40,reflectivity:30,opacity:0,transparent:true})
 
+
+  gsap.to(bio.material,{
+    opacity:1,
+    duration:1,
+    delay:1,
+    ease:'none'
+  })
+  gsap.to(bio.position,{
+    z:1,
+    duration:1,
+    delay:1,
+    ease:'power1.Out'
+  })
 
 
 })
@@ -703,7 +717,7 @@ gLoader.load('./3d/new assets/biodef logo.glb',function(gltf){
 let tex;
 
 // gLoader.load('./3d/more 2.glb',function(gltf){
-gLoader.load('./3d/new assets/new text.glb',function(gltf){
+gLoader.load('./3d/new assets/safe.glb',function(gltf){
   scene.add(gltf.scene);
   // gltf.scene.scale.set(0.28,.28,28);
   // console.log(gltf.scene);
@@ -733,22 +747,22 @@ gLoader.load('./3d/new assets/new text.glb',function(gltf){
   }
   else if(window.innerWidth>1000){
     // tex.scale.set(.033,.0315,.0315);
-    tex.scale.set(.039,.039,.039);
+    tex.scale.set(.0235,.0235,.0235);
     tex.position.z= -.01;
     // tex.position.y= -.01;
-    tex.position.y= 0.2;
+    tex.position.y= -0.1;
     // tex.position.x=-0.07;
     tex.position.x=0.15;
     tex.position.x=0;
     // tex.rotation.z= -.001;
     // tex.rotation.y=.01;
-    localPlane.normal.z=.01;
+    localPlane.normal.z=.02;
   }
 
   tex.material= new THREE.MeshBasicMaterial({
     // color:0xff0000,
     color:0x202020,
-    // clippingPlanes:[localPlane],
+    clippingPlanes:[localPlane,localPlane2],
     // clipShadows:true
   })
 // console.log(groupTwo);
@@ -766,9 +780,23 @@ gLoader.load('./3d/new assets/new text.glb',function(gltf){
 // gui.add(tex.scale,'z',.02,.05).name('text scale z');
 // gui.add(tex.position,'x',-1,1).name('text position x');
 // gui.add(tex.rotation,'z',-1,1).name('text rotation z');
+gui.add(localPlane2.normal,'x',-3,3).name('lP3 n x')
+gui.add(localPlane2.normal,'y',-3,3).name('lP3 n y')
+gui.add(localPlane2.normal,'z',-3,3).name('lP3 n z')
+})
+
+
+groupTwo.add(tex,torus,bio);
+window.addEventListener('load',function(){
+  gsap.to(localPlane2.normal,{
+    y:-1.6,
+    duration:1,
+    delay:1.8,
+    ease:'none'
+  })
+
 
 })
-groupTwo.add(tex,torus,bio);
 //lights
 const light= new THREE.AmbientLight(0xffffff,.1);
 const dirLight = new THREE.DirectionalLight(0xff0000,1)
