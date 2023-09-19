@@ -1156,7 +1156,7 @@ sectionOne
   },'simultaneously')
   .to(camera.rotation,{
     x:0,
-    y:-1,
+    y:-.9,
     z:0,
     duration:4,
   },"simultaneously")
@@ -1266,12 +1266,30 @@ sectionOne
       end:"bottom"
     }
   })
+//cards timeline
+let sectionOneHalf = gsap.timeline({
+  scrollTrigger:{
+    trigger:cards,
+    start:'top top',
+    end:'bottom',
+    scrub:0,
+    snap:.98,
+    ease:'none'
+  }
+});
+sectionOneHalf
+.to(camera.position,{
+  x:5,
+  y:2,
+  z:3,
+  duration:2,
 
+})
 
   //sectionTwo timeline
   let sectionTwo = gsap.timeline({
     scrollTrigger:{
-      trigger:cards,
+      trigger:'.prods',
       start:'top top',
       // duration:4,
       // pin:true,
@@ -1524,7 +1542,7 @@ play.style.background= 'rgba(150,150,150,.4)';
 
 let sectionThree = gsap.timeline({
   scrollTrigger:{
-    trigger:'.prods',
+    trigger:'.veed',
     // start:'5% top',
     start:'top top',
     // endTrigger:'.impact',
