@@ -232,6 +232,9 @@
       <button id="mute"><img src="images/unmute1.png" alt=""></button>
       <button id="play"><img src="images/play1.png" alt=""></button>
     </div>
+    <div id="custom-seekbar">
+<span id="custom-span"></span>
+</div>
     <div class="scroll-image">
     <img src="images/arrow-black-trans.png" alt="">
     </div>
@@ -507,6 +510,31 @@
     });
   </script>
   <script>
+  let percentage;
+
+  let veedeo= document.getElementById('video-texture');
+
+  veedeo.onplay=function(){
+    document.getElementById("custom-seekbar").classList.add('active');
+  };
+  veedeo.ontimeupdate = function(){
+    percentage = ( Math.round(veedeo.currentTime) /Math.round(veedeo.duration)  ) *100;
+    percentage=percentage.toFixed(2);
+    document.getElementById("custom-span").style.width= percentage+"%";
+
+  };
+  document.getElementById('custom-seekbar').addEventListener('click',function(e){
+    var offset = this.getBoundingClientRect();
+    var left = (e.pageX -offset.left);
+    var totalWidth = document.getElementById('custom-seekbar').getBoundingClientRect().width;
+    var peercentage = (left/totalWidth);
+    var vidTime =Math.round(veedeo.duration * peercentage);
+    veedeo.currentTime= vidTime;
+  });
+  veedeo.onended= function(){
+    document.getElementById("custom-span").style.width=0;
+  }
+
   const sections = document.querySelectorAll('section');
   const navigation = document.querySelector('.navigation');
   const news = document.querySelectorAll('.news');

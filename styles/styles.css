@@ -14,6 +14,37 @@ html {
   /* opacity: 0; */
   display: none;
 }
+#custom-seekbar
+{
+  cursor: pointer;
+  height: 10px;
+  margin-bottom: 10px;
+  outline: 1px solid black;
+  overflow: hidden;
+  position: absolute;
+  top:82%;
+  left:50%;
+  transform: translateX(-50%);
+  width: 400px;
+  border-radius: 5px;
+  transition: .3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+#custom-seekbar.active{
+  opacity: 1;
+  pointer-events: all;
+}
+#custom-span
+{
+  background-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 10px;
+  width: 0px;
+}
+
 :root{
   --marquee-width:80vw;
   --marquee-height:20vh;

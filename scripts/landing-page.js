@@ -39,7 +39,10 @@ const veedeeo= document.getElementById('video-texture');
 // impactVid3.play();
 // impactVid4.play();
 // impactVid5.play();
-
+// veedeeo.ontimeupdate = function(){
+//   var percentage = ( vid.currentTime / vid.duration ) * 100;
+//   document.getElementById("#custom-seekbar span").style.width= percentage+"%";
+// };
 veedeeo.currentTime =.1;
 // impactVid.currentTime=.1;
 // impactVid2.currentTime=.1;

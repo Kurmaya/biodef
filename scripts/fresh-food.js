@@ -1088,7 +1088,7 @@ sectionTwoHalfNew
 
   .to(curvedPanel.position,{
     x:-3.7,
-    y:-15,
+    y:-14.5,
     z:-4,
   },"simultaneously")
 
